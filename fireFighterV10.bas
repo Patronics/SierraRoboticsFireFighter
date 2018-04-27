@@ -102,7 +102,9 @@ symbol loopcount2=b20
 symbol timer2=b21
 symbol state=b22
 rebootloop:
-
+high fan
+pause 500       '''pulse fan to verify that the picaxe is running and functional
+low fan
 do
 	sertxd("Waiting for 'GO'",cr,lf)
 	gosub getUsrf
@@ -229,12 +231,21 @@ firescan2:
 				high fan
 				'sertxd("firescan2 part 2",cr,lf)
 				'goto firescan2
+				extinguish:
 				gosub powerstop
-				sertxd("Fire Extuinguished! Probably. Yay.")
 				pause 5000
 				low fan
-				
-				goto rebootloop
+				pause 1000
+				if irSensor=1 then
+					sertxd("Fire Extuinguished! Probably. Yay.")
+					low fan
+					goto rebootloop
+				else      'still sees fire after fanning
+					sertxd ("fire still burning? approaching and trying again")
+					gosub goforward
+					pause 200
+					goto extinguish
+				endif
 			else
 				'sertxd("firescan2 part 3",cr,lf)
 				gosub turnright
