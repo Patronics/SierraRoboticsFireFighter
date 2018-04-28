@@ -66,13 +66,18 @@ symbol gobutton=pinB.0
 symbol fan=C.4
 symbol irSensor=pinC.2
 '-----contstants------
-symbol fullspeed=1023
-symbol halfspeed=512
-symbol quarterspeed=256
+symbol sm=3
+symbol sd=10
+symbol fullspeedtemp=1023*sm
+symbol fullspeed=fullspeedtemp/sd
+symbol halfspeedtemp=512*sm
+symbol halfspeed=halfspeedtemp/sd
+symbol quarterspeedtemp=256*sm
+symbol quarterspeed=sm/sd
 symbol stopspeed=0
 
 '''LDR Data
-symbol ldrthresh=125
+symbol ldrthresh=130
 symbol checkgreater=bit5   ''workaround for if statement bug
 checkgreater=1     
 '-----Variables-------
@@ -118,7 +123,7 @@ loop while gobutton=0
 
 settimer t1s_8
 
-hpwm pwmsingle, pwmHHHH, %0110, 128,1023     'change back to 2023 for full speed
+hpwm pwmsingle, pwmHHHH, %0110, 128,fullspeed     'change back to 2023 for full speed
 high RmotorDir1
 low RmotorDir2
 high LmotorDir1
@@ -129,7 +134,7 @@ low LmotorDir2
 
 '-------------main---------------
 main:
-hpwmduty 1023
+hpwmduty fullspeed
 'goto firescan
 
 
@@ -139,8 +144,10 @@ gosub getUsrf
 if fusrfval<10 and timer>2 then             'backup if too close to wall
 	gosub gobackward
 'hpwmDuty 1023
-elseif Rusrfval > 165 and Lusrfval > 155 and state=0 then     '''both were 165     
+elseif Rusrfval > 165 and Fusrfval > 165 and state=0 then'''was LursfVal!!!     '''was 165 and 155     
 	sertxd ("Turning right, 'infinite' distance seen")
+	'gosub turnright
+	'pause 300
 	gosub steerright
 	pause 1500
 elseif Rusrfval > 165 and Fusrfval > 155 and state=1 then     '''test for front path    
@@ -151,7 +158,7 @@ elseif Fusrfval<40 and timer>2 then    'if very close to wall, sharp turn
 	if Rusrfval<Lusrfval then
 		gosub turnleft
 	else
-		pause 500
+		
 		gosub turnright
 		turningright=1    '''''TESTING, remove if fails
 	endif
@@ -167,6 +174,7 @@ elseif Fusrfval<70 and timer>2 then   ''Was 85   'if farther away but approachin
 	elseif Lusrfval <60 then    
 		'gosub steerright
 		'pause 200    'removal#7
+		pause 500
 		gosub turnright
 		turningright=1
 	elseif Rusrfval < 60 then    'if wall detected on right
@@ -275,7 +283,7 @@ firescan:                                                        '''TODO:  Add r
 	if state=0 then
 		state=1
 	endif
-	hpwmduty 255
+	hpwmduty quarterspeed
 	'sertxd("firescan part 1",cr,lf)
 	gosub turnright
 	
