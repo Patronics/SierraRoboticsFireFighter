@@ -66,18 +66,18 @@ symbol gobutton=pinB.0
 symbol fan=C.4
 symbol irSensor=pinC.2
 '-----contstants------
-symbol sm=3
-symbol sd=10
+symbol sm=7
+symbol sd=20
 symbol fullspeedtemp=1023*sm
 symbol fullspeed=fullspeedtemp/sd
 symbol halfspeedtemp=512*sm
 symbol halfspeed=halfspeedtemp/sd
 symbol quarterspeedtemp=256*sm
-symbol quarterspeed=sm/sd
+symbol quarterspeed=quarterspeedtemp/sd
 symbol stopspeed=0
 
 '''LDR Data
-symbol ldrthresh=130
+symbol ldrthresh=125
 symbol checkgreater=bit5   ''workaround for if statement bug
 checkgreater=1     
 '-----Variables-------
@@ -106,6 +106,12 @@ symbol ldr3on=bit4
 symbol loopcount2=b20
 symbol timer2=b21
 symbol state=b22
+symbol recentlydoing=b23     ''   | for stopping too many repitions of the same state
+symbol doingduration=b24    ''   |
+symbol olddoing=b25            ''   |
+symbol turnstage=b26
+symbol timesincescan=timer2
+symbol doingmax=5
 rebootloop:
 high fan
 pause 500       '''pulse fan to verify that the picaxe is running and functional
@@ -143,42 +149,57 @@ gosub getUsrf
 
 if fusrfval<10 and timer>2 then             'backup if too close to wall
 	gosub gobackward
+	recentlydoing=1
 'hpwmDuty 1023
-elseif Rusrfval > 165 and Fusrfval > 165 and state=0 then'''was LursfVal!!!     '''was 165 and 155     
+elseif Rusrfval > 135  and state=0 then'''was LursfVal!!!     '''was 165 and 155       ''had and Lusrfval > 165
 	sertxd ("Turning right, 'infinite' distance seen")
 	'gosub turnright
 	'pause 300
-	gosub steerright
-	pause 1500
+	if turnstage>1 then
+		gosub turnright
+		turnstage=0
+	else
+		gosub steerright
+		turnstage=turnstage+1
+	 endif
+	recentlydoing=2
+	pause 150
 elseif Rusrfval > 165 and Fusrfval > 155 and state=1 then     '''test for front path    
 	sertxd ("Turning right, 'infinite' distance seen 2!")
 	gosub steerright
+	recentlydoing=3
 	pause 1500
 elseif Fusrfval<40 and timer>2 then    'if very close to wall, sharp turn
 	if Rusrfval<Lusrfval then
+		recentlydoing=4
 		gosub turnleft
 	else
 		
 		gosub turnright
 		turningright=1    '''''TESTING, remove if fails
+		recentlydoing=5
 	endif
-elseif Fusrfval<70 and timer>2 then   ''Was 85   'if farther away but approaching, start gradual turn
+elseif Fusrfval<65 and timer>2 then   ''Was 85   'if farther away but approaching, start gradual turn
 	if currentlyturning=1 then; and turningright=1 then
 	'dont change from current turning pattern
 	if turningright=1 then
 		gosub turnright
+		recentlydoing=6
 	else
 		gosub turnleft
+		recentlydoing=7
 	endif
 	
-	elseif Lusrfval <60 then    
+	elseif Lusrfval <55 then    
 		'gosub steerright
 		'pause 200    'removal#7
-		pause 500
+		'pause 500
 		gosub turnright
 		turningright=1
+		recentlydoing=8
 	elseif Rusrfval < 60 then    'if wall detected on right
 		gosub steerleft'turnleft  'turn left
+		recentlydoing=9
 		'pause 200     'removal#7
 		turningright=0
 		'gosub turnleft
@@ -186,6 +207,7 @@ elseif Fusrfval<70 and timer>2 then   ''Was 85   'if farther away but approachin
 	else                       
 		gosub steerright'turnright  'otherwise right
 		'pause 200     'removal#7
+		recentlydoing=10
 		turningright=1
 		;gosub powerstop
 		'pause 500
@@ -194,12 +216,16 @@ elseif Fusrfval<70 and timer>2 then   ''Was 85   'if farther away but approachin
 'hpwmDuty 1023
 elseif timer>2   then                        'go forward until near a wall
 	currentlyturning=0
+	recentlydoing=11
 	if Rusrfval<13 then
 		gosub steerleft
+		recentlydoing=12
 	elseif Lusrfval<13 then
 		gosub steerright
+		recentlydoing=13
 	else
 		gosub goforward
+		recentlydoing=14
 	endif
 endif
 
@@ -211,13 +237,18 @@ gosub checkldrs
 gosub printsensors
 
 if ldr1on=1 or ldr2on=1 or ldr3on=1 then     ''''''   now old: CHANGE BACK TO 4, 200 ONLY FOR TESTING!!
-	timer2=timer2+3
+	timer2=timer2+6
+	
 	if timer2<timer then
 		let loopcount2=0
 		timer2=timer2-3
+		gosub goforward
+		do
+			gosub getUsrf
+		loop while Fusrfval > 50
 		goto firescan
 	endif
-	timer2=timer2-3
+	timer2=timer2-6
 endif
 
 
@@ -226,7 +257,7 @@ goto main
 firescan2:
 	gosub goforward
 	gosub checkldrs
-	if ldr1on=1 and ldr2on=1 and ldr3on=1 then
+	if ldr1on=1 then' and ldr2on=1 and ldr3on=1 then '''''removed to not hit candle
 		if loopcount2>1 then    'was 6
 			goto firescan
 		endif
@@ -249,7 +280,7 @@ firescan2:
 					low fan
 					goto rebootloop
 				else      'still sees fire after fanning
-					sertxd ("fire still burning? approaching and trying again")
+					sertxd ("fire still burning? demanding refund and trying again")
 					gosub goforward
 					pause 200
 					goto extinguish
@@ -283,12 +314,12 @@ firescan:                                                        '''TODO:  Add r
 	if state=0 then
 		state=1
 	endif
-	hpwmduty quarterspeed
+	hpwmduty halfspeed
 	'sertxd("firescan part 1",cr,lf)
 	gosub turnright
 	
 	inc loopcount2
-	if loopcount2>1 then     'was 6
+	if loopcount2>1 then     'was    ' 6
 		timer2=timer
 		goto main
 	endif
@@ -331,7 +362,23 @@ firescan:                                                        '''TODO:  Add r
 goto firescan
 'goto main
 
-
+checkstuck:
+if olddoing=recentlydoing then
+	doingduration=doingduration + 4
+	if doingduration < timer then
+		gosub gobackward
+		pause 300
+		gosub turnright
+		pause 200
+		doingduration = timer
+	else
+	
+	endif
+	doingduration=doingduration - 4
+else
+	olddoing=recentlydoing
+	doingduration=timer
+endif
 goforward:
 	'sertxd("Going Forward",cr,lf)
 	high LmotorDir1
@@ -479,7 +526,7 @@ printsensors:
 	if ldr3on=1 then 
 		sertxd("LDR 3 detecting value over threshold",cr,lf)
 	endif
-	sertxd("timer=  ",timer,cr,lf)
+	sertxd("timer=  ",#timer,cr,lf)
 return
 
 ''''''''''''''''''Power Supply Voltage Check
