@@ -1,4 +1,5 @@
 #picaxe 40X2
+
 symbol motorAin1 = D.1
 symbol motorAin2 = D.0
 symbol motorBin1 = D.2
@@ -26,20 +27,24 @@ high motorAin2
 low motorBin2
 high motorBin1
 
+
+hi2csetup i2cmaster, 62, i2cfast, i2cbyte
+
 main:
 
 gosub getpulse
 
 if w0>8 then
-	pwmout MotorpwmA, 20, 1023
-	pwmout MotorpwmB, 20, 1023
+	pwmout MotorpwmA, 150, 150
+	pwmout MotorpwmB, 150, 150
 else
-	pwmout MotorpwmA, 20, 0
-	pwmout MotorpwmB, 20, 0
+	pwmout MotorpwmA, 150, 0
+	pwmout MotorpwmB, 150, 0
 
 endif
 
-
+hi2cin 1,(b3)
+sertxd ("data from slave", #b3,cr,lf)
 
 goto main
 
