@@ -5,7 +5,7 @@
 #todo: more thoroughly test macro behaviors, especially with parentheses
 #Created by Patrick Leiser
 import sys, getopt, os, datetime, re
-inputfilename = ''
+inputfilename = 'fireFighter.bas'
 outputfilename = 'compiled.bas'
 outputpath=""
 definitions=dict()
