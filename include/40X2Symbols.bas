@@ -1,5 +1,9 @@
+#include "sharedSymbols.bas"
 
-symbol usrf1=C.1    
+
+
+
+symbol usrf1=C.1       '''''TODO:UPDATE
 symbol usrf1_in=C.0
 symbol Fusrf=usrf1
 symbol Fusrf_In=usrf1_in
@@ -51,9 +55,9 @@ symbol ldr3=17
 ;symbol stopspeed=0
 
 '''LDR Data
-symbol ldrthresh=130
-symbol checkgreater=bit5   ''workaround for if statement bug
-checkgreater=1     
+'symbol ldrthresh=130
+'symbol checkgreater=bit5   ''workaround for if statement bug
+'checkgreater=1     
 '-----Variables-------
 ;symbol arg1=b2
 ;symbol arg2=b3

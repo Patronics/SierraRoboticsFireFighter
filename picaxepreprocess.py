@@ -4,7 +4,7 @@
 #todo: make defines behave like single line macros, allowing(parameters)
 #todo: more thoroughly test macro behaviors, especially with parentheses
 #Created by Patrick Leiser
-import sys, getopt, os, datetime, re
+import sys, getopt, os, datetime, re, os.path
 inputfilename = 'fireFighter.bas'
 outputfilename = 'compiled.bas'
 outputpath=""
@@ -50,6 +50,9 @@ def progparse(curfilename):
         curpath=""
     else:
         curpath=path
+    if (not os.path.isfile(curpath+curfilename)):
+        if os.path.isfile(curpath+"include/"+curfilename):
+            curpath=curpath+"include/"
     with open(curpath+curfilename) as input_file:
         for i, line in enumerate(input_file):
             workingline=line.lstrip()

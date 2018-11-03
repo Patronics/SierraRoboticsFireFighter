@@ -1,6 +1,6 @@
 
 
-preprocess: fireFighter.bas include/40X2Symbols.bas
+preprocess: fireFighter.bas include/40X2Symbols.bas include/sensorRoutines.bas
 	./picaxepreprocess.py -i fireFighter.bas
 
 compile: preprocess
