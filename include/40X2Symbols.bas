@@ -1,27 +1,28 @@
 #include "sharedSymbols.bas"
 
+#picaxe 40x2
+
+symbol j21a=A.0
+symbol j21b=A.1
+symbol j21c=A.2
+
+symbol j22a=C.0
+symbol j22b=B.2
+symbol j22c=C.7
+
+symbol j23a=A.7
+symbol j23b=B.1
+symbol j23c=D.4
+
+symbol j24a=A.6
+symbol j24b=C.5
+symbol j24c=A.3
+
+symbol j25a=A.5
+symbol j25b=C.6
+symbol j25c=B.0
 
 
-
-symbol usrf1=C.1       '''''TODO:UPDATE
-symbol usrf1_in=C.0
-symbol Fusrf=usrf1
-symbol Fusrf_In=usrf1_in
-symbol usrf2= A.2
-symbol usrf2_in=A.3
-symbol Rusrf=usrf2
-symbol Rusrf_in=usrf2_in
-symbol usrf3=A.0
-symbol usrf3_in=A.1
-symbol Lusrf=usrf3
-symbol Lusrf_in=usrf3_in
-
-'symbol usrf4=
-'symbol usrf5=
-'symbol usrf6=
-'symbol usrfFront=usrf1
-'symbol usrfLeft=usrf2
-'symbol usrfRight=usrf3
 '...
 'Motor control pins
 symbol RmotorPWM=C.2   'hpwm outputs   ''updated 'NOW PWM
@@ -35,9 +36,9 @@ symbol RmotorDir2=D.3  ' B.4    may need reorganizing
 'symbol RmotorForward=RmotorDir1
 'symbol RmotorReverse=RmotorDir2
 ''Light Dependent Resistor
-symbol ldr1=19
-symbol ldr2=18
-symbol ldr3=17
+symbol ldr1=27     'D.7
+symbol ldr2=26     'D.6
+symbol ldr3=25     'D.5
 'Other I/O
 'symbol solenoidDriver=
 ;symbol gobutton=pinB.0
