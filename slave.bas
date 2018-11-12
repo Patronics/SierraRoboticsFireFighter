@@ -1,5 +1,7 @@
 #include "28x2symbols.bas"
 
+hi2csetup i2cslave, slaveaddr
+
 main:
 
 
