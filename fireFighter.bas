@@ -6,7 +6,7 @@
 
 #include "include/40X2Symbols.bas"
 #include "include/sensorRoutines.bas"
-
+#include "include/motorRoutines.bas"
 
    '''To consider: worth making a setup.bas include file? or keep in main file?
 hi2csetup i2cmaster, slaveaddr, i2cfast, i2cbyte
