@@ -25,8 +25,8 @@ symbol j25c=B.0
 
 '...
 'Motor control pins
-symbol RmotorPWM=C.2   'hpwm outputs   ''updated 'NOW PWM
-symbol LmotorPWM=C.1   'hpwm outputs   ''updated 'NOW PWM
+symbol RmotorPWM=C.2   'pwm outputs
+symbol LmotorPWM=C.1   'pwm outputs
 symbol LmotorDir1=D.0  ' B.7    may need reorganizing
 symbol LmotorDir2=D.1  ' B.6    may need reorganizing
 symbol RmotorDir1=D.2  ' B.5    may need reorganizing

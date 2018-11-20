@@ -17,4 +17,4 @@ symbol returnw2=w22
 
 symbol tempb1=b46
 symbol tempb2=b47
-symbol tempw2=w23
+symbol tempw1=w23
