@@ -15,4 +15,4 @@ return (returnb1 : LDR_VALUE)
 
 
 getpower ()
-return (returnw1 : VOLTAGE_IN_10_mVOLT_STEPS, returnw2 : GARBAGE_DATA)
+return (returnw1 : VOLTAGE_IN_10_mVOLT_STEPS)
