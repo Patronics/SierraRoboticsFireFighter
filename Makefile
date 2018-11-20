@@ -1,3 +1,5 @@
+prog_port = $(shell ls /dev/tty.usbserial-*)
+
 all: syntax slavesyntax
 
 
@@ -10,7 +12,7 @@ preprocess: fireFighter.bas include/40X2Symbols.bas include/sensorRoutines.bas
 
 compile: preprocess
 	tr -d '\r' < compiled.bas > ./compilers/compiled.bas
-	./compilers/c/picaxe28x2 ./compilers/compiled.bas
+	./compilers/c/picaxe28x2 -c$(prog_port) ./compilers/compiled.bas
 
 slave: slave.bas include/28X2Symbols.bas
 	./picaxepreprocess.py -i slave.bas -o slavecompiled.bas
@@ -21,7 +23,7 @@ slavesyntax: slave
 
 slavecompile: slave
 	tr -d '\r' < slavecompiled.bas > ./compilers/slavecompiled.bas
-	./compilers/c/picaxe28x2 ./compilers/slavecompiled.bas
+	./compilers/c/picaxe28x2 -c$(prog_port) ./compilers/slavecompiled.bas
 
 clean:
 	-rm compiled.bas
