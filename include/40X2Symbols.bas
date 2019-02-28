@@ -1,4 +1,4 @@
-#include "sharedSymbols.bas"
+#include "SharedSymbols.bas"
 
 #picaxe 40x2
 
