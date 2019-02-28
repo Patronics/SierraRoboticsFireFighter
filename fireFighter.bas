@@ -4,7 +4,7 @@
 
 goto start
 
-#define bigblue
+
 
 #include "include/40X2Symbols.bas"
 #include "include/sensorRoutines.bas"
