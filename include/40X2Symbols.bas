@@ -27,10 +27,16 @@ symbol j25c=B.0
 'Motor control pins
 symbol RmotorPWM=C.2   'pwm outputs
 symbol LmotorPWM=C.1   'pwm outputs
-symbol LmotorDir1=D.0  ' B.7    may need reorganizing
-symbol LmotorDir2=D.1  ' B.6    may need reorganizing
-symbol RmotorDir1=D.2  ' B.5    may need reorganizing
-symbol RmotorDir2=D.3  ' B.4    may need reorganizing
+#ifdef bigblue       'for broken pin on my robot
+	sertxd("using B.6 instead of D.0")
+	input D.0
+	symbol LmotorDir2=B.6    ''to account for broken D.0 pin on Patrick's project board
+#else
+	symbol LmotorDir2=D.0  ' B.7    may need reorganwizing
+#endif
+symbol LmotorDir1=D.1  ' B.6    may need reorganizing
+symbol RmotorDir2=D.2  ' B.5    may need reorganizing
+symbol RmotorDir1=D.3  ' B.4    may need reorganizing
 'symbol LmotorForward=LmotorDir1
 'symbol LmotorReverse=LmotorDir2
 'symbol RmotorForward=RmotorDir1
