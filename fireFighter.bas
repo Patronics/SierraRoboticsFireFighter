@@ -19,21 +19,17 @@ hi2csetup i2cmaster, slaveaddr, i2cfast, i2cbyte
 gosub setupmotors
 
 main:
-;;;Simple motor test
-sertxd("looping")
-arg1=50
-gosub setspeed
-gosub goforward
-pause 3000
 
-arg1=100
-gosub setspeed
-pause 3000
+hi2cin slaveerrorstatusflags_ptr, (slaveerrorstatusflags)
+hi2cin slavetimestamp_ptr, (slavetimestamp)
+hi2cin slaveusrf_ptr_start,(tempb1)
+'Simple testing
+sertxd("usrf data:  ",#tempb1)
+sertxd("error status flags:  ",#slaveerrorstatusflags)
+sertxd("timestamp:  ",#slavetimestamp)
 
-arg1=50
-gosub setspeed
-gosub gobackward
-pause 3000
+
+
 
 
 
