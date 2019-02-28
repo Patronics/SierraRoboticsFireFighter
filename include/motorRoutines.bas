@@ -9,18 +9,18 @@ setupmotors:
 return
 
 setspeed:  'pass in byte value 0-200 for duty cycle
-	tempw1=arg1*4
+	tempw1=argb1*4
 	pwmduty RmotorPWM, tempw1
 	pwmduty LmotorPWM, tempw1
 return
 
 setspeedl:  'pass in byte value 0-200 for duty cycle for left motor
-	tempw1=arg1*4
+	tempw1=argb1*4
 	pwmduty LmotorPWM, tempw1
 return
 
 setspeedr:  'pass in byte value 0-200 for duty cycle for left motor
-	tempw1=arg1*4
+	tempw1=argb1*4
 	pwmduty RmotorPWM, tempw1
 return
 

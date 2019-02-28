@@ -15,9 +15,9 @@ goto start
 start: 
 
 hi2csetup i2cmaster, slaveaddr, i2cfast, i2cbyte
-
+pushram
 gosub setupmotors
-
+popram
 main:
 
 hi2cin slaveerrorstatusflags_ptr, (slaveerrorstatusflags)

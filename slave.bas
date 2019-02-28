@@ -1,4 +1,3 @@
-
 goto start
 #include "28x2symbols.bas"
 #include sensorroutines.bas
@@ -8,8 +7,8 @@ hi2csetup i2cslave, slaveaddr
 
 main:
 pause 100    ''delay for testing, likely unneded
-arg1=j11b    'usrf pins
-arg2=j11a    'usrf pins
+argb1=j11b    'usrf pins
+argb2=j11a    'usrf pins
 
 gosub sgetpulse    '''assuming usrf connected to J11 for testing
 

@@ -8,15 +8,15 @@
 
 'get distance from ultrasonic
 getpulse:
-	pulsout arg1,2
-	pulsin arg2,1,returnw1
+	pulsout argb1,2
+	pulsin argb2,1,returnw1
 	pause 30
 	returnw1=returnw1*10/58
 return
 
 mgetpulse:
 'TODO: get pulse to master from slave
-tempb1=arg1+slaveusrf_ptr_start   'calculate memory offset for usrf in slave scratchpad
+tempb1=argb1+slaveusrf_ptr_start   'calculate memory offset for usrf in slave scratchpad
 hi2cin tempb1, (returnb1)
 
 
@@ -36,7 +36,7 @@ return
 
 
 getldr:
-readadc arg1, returnb1
+readadc argb1, returnb1
 
 return
 
