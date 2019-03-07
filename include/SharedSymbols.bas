@@ -1,4 +1,10 @@
 
+
+#no_table      'to keep the unique identifier of master and slave
+''''NOTE this also automatically does #no_data (so eeprom will be nonfunctional until this is removed
+
+symbol tableID_ptr = 0    'master/slave differentiator location in table
+
 symbol slaveaddr=62
 symbol slavetimestamp = b20     'incremented every time through the slave program loop
 symbol slavetimestamp_ptr= 20
@@ -8,6 +14,7 @@ symbol slaveusrf_ptr_start = 65     'scratchpad locations 65-74 reserved for up 
 symbol slaveerrorstatusflags=b0
 symbol slaveerrorstatusflags_ptr = 0
 
+symbol integeroverflowflag=bit0
 
 symbol argb1=b2
 symbol argb2=b3

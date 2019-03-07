@@ -17,6 +17,7 @@ return
 mgetpulse:
 'TODO: get pulse to master from slave
 tempb1=argb1+slaveusrf_ptr_start   'calculate memory offset for usrf in slave scratchpad
+sertxd("getting address",#tempb1)
 hi2cin tempb1, (returnb1)
 
 
@@ -40,6 +41,25 @@ readadc argb1, returnb1
 
 return
 
+verifychip:
+
+readtable tableID_ptr, tempb1
+'sertxd ("TableValue: ",tempb1)
+if tempb1 <> tableID then
+	traploop:
+		sertxd (cr,lf,"Warning: Device ID ")    'device ID set by table location zero
+		if tempb1=0 then
+			sertxd ("Unset")
+		else
+			sertxd ("Unknown: ",tempb1)
+		endif
+		pause 500
+	goto traploop
+endif
+
+
+
+return
 
 
 getpower:

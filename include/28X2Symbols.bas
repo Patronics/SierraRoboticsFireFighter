@@ -2,6 +2,8 @@
 
 #picaxe 28x2
 
+symbol tableID = "S"
+
 symbol j11a=A.1
 symbol j11b=A.0
 

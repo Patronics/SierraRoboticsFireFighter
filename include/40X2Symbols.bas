@@ -2,6 +2,9 @@
 
 #picaxe 40x2
 
+symbol tableID = "M"
+
+
 symbol j21a=A.0
 symbol j21b=A.1
 symbol j21c=A.2
@@ -66,16 +69,7 @@ symbol ldr3=25     'D.5
 'symbol checkgreater=bit5   ''workaround for if statement bug
 'checkgreater=1     
 '-----Variables-------
-;symbol arg1=b2
-;symbol arg2=b3
-;symbol argw1=w1
-;symbol returnw=w3
-;symbol returnw1=returnw
-;symbol returnb1=b6
-;symbol returnb2=b7
-;symbol returnw2=w4
-;symbol returnb3=b8
-;symbol returnb4=b9
+
 ;symbol Fusrfval=w5
 ;symbol Rusrfval=w6
 ;symbol Lusrfval=w7
