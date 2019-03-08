@@ -17,16 +17,22 @@ return
 mgetpulse:
 'TODO: get pulse to master from slave
 tempb1=argb1+slaveusrf_ptr_start   'calculate memory offset for usrf in slave scratchpad
-sertxd("getting address",#tempb1)
+;sertxd("getting address ",#tempb1)
 hi2cin tempb1, (returnb1)
-
+sertxd("usrf data:  ",#returnb1,cr,lf)
 
 return
 
 sgetpulse:
-
 	gosub getpulse
-
+	if returnb1<>returnw1 then
+		returnb3=1
+	else
+		returnb3=0
+	endif
+	returnb1=returnw1
+	argb3=slaveusrf_ptr_start+argb3
+	put argb3, returnb1     'store to send for master
 return
 
 
@@ -56,8 +62,6 @@ if tempb1 <> tableID then
 		pause 500
 	goto traploop
 endif
-
-
 
 return
 
