@@ -7,6 +7,20 @@
 ' slave function eg sgetpulse
 
 'get distance from ultrasonic
+
+mgetpulses:
+
+'argb1=0
+'gosub mgetpulse
+'put slaveusrf_ptr_start,returnb1
+'argb1=1
+'gosub mgetpulse
+'put ,returnb1
+
+
+
+return
+
 getpulse:
 	pulsout argb1,2
 	pulsin argb2,1,returnw1
@@ -32,6 +46,7 @@ sgetpulse:
 	endif
 	returnb1=returnw1
 	argb3=slaveusrf_ptr_start+argb3
+	sertxd ("storing utra: ", #returnb1,cr,lf)
 	put argb3, returnb1     'store to send for master
 return
 

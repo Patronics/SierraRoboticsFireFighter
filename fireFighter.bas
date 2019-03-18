@@ -21,24 +21,54 @@ pushram
 gosub setupmotors
 popram
 
+
+argb1=100
+gosub setspeed   'set speed to 100 (50%)
+
 main:
 
 
 hi2cin slaveerrorstatusflags_ptr, (slaveerrorstatusflags)
 hi2cin slavetimestamp_ptr, (slavetimestamp)
-argb1=0
-gosub mgetpulse
+
 'Simple testing
-sertxd("usrf data:  ",#returnb1,cr,lf)
+
 sertxd("error status flags:  ",#slaveerrorstatusflags,cr,lf)
 sertxd("timestamp:  ",#slavetimestamp,cr,lf)
 
 
-
-pause 1000
-
-
+gosub ultratest
 
 
 
 goto main
+
+
+ultratest:
+
+argb1=0
+pushram
+gosub mgetpulse
+popram
+tempb1=returnb1
+argb1=1
+pushram
+gosub mgetpulse
+popram
+tempb2=returnb2
+
+if returnb2 < 8 then
+	if returnb1 <8 then
+		gosub gobackward
+	else
+		gosub idlestop
+	endif
+elseif returnb1 < 8 then
+	gosub idlestop
+else
+	gosub goforward
+endif
+
+sertxd("usrf data:  ",#returnb1,cr,lf)
+return
+
