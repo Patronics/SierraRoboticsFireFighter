@@ -15,8 +15,8 @@ argb3=0       'usrf number; memory slot+65
 gosub sgetpulse    '''assuming usrf connected to J11 for testing
 
 pause 20
-argb1=j12b    'usrf pins
-argb2=j12a    'usrf pins
+argb1=j13b    'usrf pins
+argb2=j13a    'usrf pins
 argb3=1       'usrf number; memory slot+65
 gosub sgetpulse    '''assuming usrf connected to J11 for testing
 

@@ -55,15 +55,17 @@ argb1=1
 pushram
 gosub mgetpulse
 popram
-tempb2=returnb2
+tempb2=returnb1
 
-if returnb2 < 8 then
-	if returnb1 <8 then
+
+sertxd("Acting on sensor values   ",#tempb1, "  and  ",#tempb2, cr,lf)
+if tempb2 < 8 then
+	if tempb1 <8 then
 		gosub gobackward
 	else
 		gosub idlestop
 	endif
-elseif returnb1 < 8 then
+elseif tempb1 < 8 then
 	gosub idlestop
 else
 	gosub goforward
