@@ -38,3 +38,4 @@ symbol tempb1=b8
 symbol tempb2=b9
 symbol tempw1=w4
 
+symbol loopCount=b14

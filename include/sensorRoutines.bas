@@ -16,9 +16,15 @@ mgetpulses:
 'argb1=1
 'gosub mgetpulse
 'put ,returnb1
-
-
-
+bptr = 24
+for loopCount = 0 to 7
+	argb1 = loopCount
+	gosub mgetpulse
+	@bptrinc = returnb1
+next
+	
+'byte pointer = 24 m+ count'
+'@bpointer inc
 return
 
 getpulse:

@@ -25,6 +25,16 @@ symbol j25a=A.5
 symbol j25b=C.6
 symbol j25c=B.0
 
+symbol masterusrf_ptr_start = 24
+
+symbol  usrf1=b24
+symbol  usrf2=b25
+symbol  usrf3=b26
+symbol  usrf4=b27
+symbol  usrf5=b28
+symbol  usrf6=b29
+symbol  usrf7=b30
+symbol  usrf8=b31
 
 '...
 'Motor control pins

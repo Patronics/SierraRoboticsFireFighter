@@ -1,5 +1,5 @@
 'Main Program for v2 of the FireFighter Bot
-'written by Patrick Leiser, [insert your name here], ...
+'written by Patrick Leiser, John Schneider, Kendrick Moore[insert your name here], ...
 'and the rest of the firebot team in Sierra College Robotics Club [Team]
 
 goto start
@@ -45,6 +45,7 @@ goto main
 
 
 ultratest:
+
 
 argb1=0
 pushram
