@@ -36,6 +36,14 @@ symbol  usrf6=b29
 symbol  usrf7=b30
 symbol  usrf8=b31
 
+symbol FRusrf=usrf2 
+symbol FLusrf=usrf1 
+symbol RFusrf=usrf3 
+symbol RBusrf=usrf4 
+symbol BRusrf=usrf5 
+symbol BLusrf=usrf6
+symbol LBusrf=usrf7
+symbol LFusrf=usrf8
 '...
 'Motor control pins
 symbol RmotorPWM=C.2   'pwm outputs

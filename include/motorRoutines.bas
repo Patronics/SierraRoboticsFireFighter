@@ -86,4 +86,29 @@ idlestop:
 	low LmotorDir2
 	low RmotorDir1
 	low RmotorDir2
-return
+return 
+
+
+leftwallalign:
+
+	gosub mgetpulses 
+	
+	if LFusrf > LBusrf then 
+		
+		do while (LFusrf < LBusrf -3) and (LFusrf > LBusrf +3) 
+		
+			gosub mgetpulses  
+			
+			gosub turnleft 
+			
+			loop 
+	elseif LFusrf < LBusrf then 
+		
+		do while (LFusrf > LBusrf4 -3) and (LFusrf < LBusrf +3) 
+		
+			gosub mgetpulses  
+			
+			gosub turnright 
+			
+			loop 
+		
