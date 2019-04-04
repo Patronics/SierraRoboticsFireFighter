@@ -47,26 +47,17 @@ goto main
 ultratest:
 
 
-argb1=0
-pushram
-gosub mgetpulse
-popram
-tempb1=returnb1
-argb1=1
-pushram
-gosub mgetpulse
-popram
-tempb2=returnb1
+gosub mgetpulses
 
 
-sertxd("Acting on sensor values   ",#tempb1, "  and  ",#tempb2, cr,lf)
-if tempb2 < 8 then
-	if tempb1 <8 then
+sertxd("Acting on sensor values   ",#usrf1, "  and  ",#usrf2, cr,lf)
+if usrf2 < 8 then
+	if usrf1 <8 then
 		gosub gobackward
 	else
 		gosub idlestop
 	endif
-elseif tempb1 < 8 then
+elseif usrf1 < 8 then
 	gosub idlestop
 else
 	gosub goforward

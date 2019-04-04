@@ -20,6 +20,23 @@ argb2=j13a    'usrf pins
 argb3=1       'usrf number; memory slot+65
 gosub sgetpulse    '''assuming usrf connected to J11 for testing
 
+pause 20
+argb1=j14b
+argb2=j14a
+argb3=2
+gosub sgetpulse
+
+pause 20
+argb1=j15b
+argb2=j15a
+argb3=3
+gosub sgetpulse
+
+'pause 20
+'argb1=j16b
+'argb2=j16a
+'argb3=4
+'gosub sgetpulse
 
 put slaveerrorstatusflags_ptr, slaveerrorstatusflags    'store to send for master
 
