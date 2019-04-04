@@ -92,23 +92,29 @@ return
 leftwallalign:
 
 	gosub mgetpulses 
-	
-	if LFusrf > LBusrf then 
+	tempb1 = LFusrf-LBusrf
+	if LFusrf > Lbusrf then 
 		
-		do while (LFusrf < LBusrf -3) and (LFusrf > LBusrf +3) 
-		
+		do while ( tempb1 > 3)  
+			pushram
 			gosub mgetpulses  
-			
+			popram 
+			tempb1 = LFusrf-LBusrf
 			gosub turnleft 
 			
 			loop 
-	elseif LFusrf < LBusrf then 
+	else
+		tempb1=LBusrf-LFusrf
+		if tempb1 > 3 then 
 		
-		do while (LFusrf > LBusrf4 -3) and (LFusrf < LBusrf +3) 
-		
-			gosub mgetpulses  
-			
-			gosub turnright 
-			
+			do while ( tempb1 > 3)  
+				pushram
+				gosub mgetpulses  
+				popram 
+				tempb1 = LFusrf-LBusrf
+				gosub turnright 
+				
 			loop 
-		
+		endif
+	endif
+return
