@@ -95,7 +95,7 @@ leftwallalign:
 	tempb1 = LFusrf-LBusrf
 	if LFusrf > Lbusrf then 
 		
-		do while ( tempb1 > 3)  
+		do while tempb1 > 3  
 			pushram
 			gosub mgetpulses  
 			popram 
@@ -107,7 +107,7 @@ leftwallalign:
 		tempb1=LBusrf-LFusrf
 		if tempb1 > 3 then 
 		
-			do while ( tempb1 > 3)  
+			do while  tempb1 > 3  
 				pushram
 				gosub mgetpulses  
 				popram 
