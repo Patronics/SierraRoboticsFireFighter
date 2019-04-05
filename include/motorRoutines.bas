@@ -90,31 +90,30 @@ return
 
 
 leftwallalign:
-
+	argb1=80
+	gosub setspeed
 	gosub mgetpulses 
-	tempb1 = LFusrf-LBusrf
-	if LFusrf > Lbusrf then 
+	tempb1 = RFusrf-RBusrf
+	if RFusrf > RBusrf then 
 		
-		do while tempb1 > 3  
+		do while tempb1 > 2 and tempb1 < 128
 			pushram
 			gosub mgetpulses  
 			popram 
-			tempb1 = LFusrf-LBusrf
-			gosub turnleft 
+			tempb1 = RFusrf-RBusrf
+			gosub turnright
 			
 			loop 
 	else
-		tempb1=LBusrf-LFusrf
-		if tempb1 > 3 then 
+		tempb1=RBusrf-RFusrf
 		
-			do while  tempb1 > 3  
-				pushram
-				gosub mgetpulses  
-				popram 
-				tempb1 = LFusrf-LBusrf
-				gosub turnright 
-				
-			loop 
-		endif
+		do while tempb1 > 2 and tempb1 < 128
+			pushram
+			gosub mgetpulses  
+			popram 
+			tempb1 = RFusrf-RBusrf
+			gosub turnleft
+			
+		loop 
 	endif
 return
