@@ -31,7 +31,7 @@ getpulse:
 	pulsout argb1,2
 	pulsin argb2,1,returnw1
 	pause 30
-	returnw1=returnw1*10/58
+	returnw1=returnw1*5/58  ''''we are changing the number from 10/58 which gives cm this is no longer the case!!!!!""""""
 return
 
 mgetpulse:
@@ -39,7 +39,7 @@ mgetpulse:
 tempb1=argb1+slaveusrf_ptr_start   'calculate memory offset for usrf in slave scratchpad
 ;sertxd("getting address ",#tempb1)
 hi2cin tempb1, (returnb1)
-sertxd("usrf data:  ",#returnb1,cr,lf)
+sertxd("usrf #",#argb1,"  data:  ",#returnb1,cr,lf)
 
 return
 
