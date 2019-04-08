@@ -36,8 +36,8 @@ hi2cin slavetimestamp_ptr, (slavetimestamp)
 sertxd("error status flags:  ",#slaveerrorstatusflags,cr,lf)
 sertxd("timestamp:  ",#slavetimestamp,cr,lf)
 
-
-gosub leftwallalign
+argb1=20
+gosub leftwalldistance
 
 
 

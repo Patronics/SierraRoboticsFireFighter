@@ -88,6 +88,34 @@ idlestop:
 	low RmotorDir2
 return 
 
+leftwalldistance:
+	'argb1 specifes target distance in 1/2 cm steps
+	'tempb1 is difference between sensors*scalar
+	'tempb2 is average distance from wall
+	'tempb3 is offset distance to correct*scalar
+	gosub goforward
+	do
+	gosub mgetpulses
+	tempb2=RFusrf+RBusrf/2
+	tempb3=tempb2-argb1
+	if RFusrf > RBusrf then    'if rightFront farther from wall than rightBack
+		tempb1 = RFusrf-RBusrf
+		tempb1 = tempb1 * 8 max 60
+		argb1 = 60 - tempb1-tempb3 '+ 12
+		gosub setspeedr
+		argb1 = 60
+		gosub setspeedl
+	else                                'if rightBack farther from wall than rightFront
+		tempb1 = RBusrf-RFusrf
+		tempb1 = tempb1 * 8 max 60
+		argb1 = 60 - tempb1+tempb3
+		gosub setspeedl
+		argb1 = 60 '+ 12
+		gosub setspeedr
+	endif
+	loop
+return
+
 
 leftwallalign:
 	gosub goforward
@@ -110,3 +138,6 @@ leftwallalign:
 	endif
 	loop
 return
+
+
+
