@@ -38,7 +38,7 @@ sertxd("timestamp:  ",#slavetimestamp,cr,lf)
 
 
 argb1=20
-gosub leftwalldistance
+gosub rightwalldistance
 
 'gosub rightwallalign
 
