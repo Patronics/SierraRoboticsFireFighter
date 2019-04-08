@@ -37,7 +37,7 @@ sertxd("error status flags:  ",#slaveerrorstatusflags,cr,lf)
 sertxd("timestamp:  ",#slavetimestamp,cr,lf)
 
 
-gosub leftwallalign
+gosub rightwallalign
 
 
 
