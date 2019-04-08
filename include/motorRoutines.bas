@@ -95,7 +95,7 @@ idlestop:
 return 
 
 
-leftwallalign:
+rightwallalign:
 	gosub goforward
 	do
 	gosub mgetpulses 
@@ -103,16 +103,14 @@ leftwallalign:
 		tempb1 = RFusrf-RBusrf
 		tempb1 = tempb1 * 8 max 60
 		argb1 = 60 - tempb1 '+ 12
-		gosub setspeedr
-		argb1 = 60
-		gosub setspeedl
+		argb2 = 60
+		gosub setspeeds
 	else
 		tempb1 = RBusrf-RFusrf
 		tempb1 = tempb1 * 8 max 60
-		argb1 = 60 - tempb1
-		gosub setspeedl
+		argb2 = 60 - tempb2
 		argb1 = 60 '+ 12
-		gosub setspeedr
+		gosub setspeeds
 	endif
 	loop
 return
