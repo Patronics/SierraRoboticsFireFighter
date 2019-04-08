@@ -23,7 +23,13 @@ setspeedr:  'pass in byte value 0-200 for duty cycle for left motor
 	tempw1=argb1*4
 	pwmduty RmotorPWM, tempw1
 return
-
+setspeeds:  'pass in byte value 0-200 for duty cycle for left motor
+	tempw1=argb1*4
+	tempw2=argb2*4
+	pwmduty RmotorPWM, tempw1
+	pwmduty LmotorPWM, tempw2
+	
+return
 goforward:
 	'sertxd("Going Forward",cr,lf)
 	high LmotorDir1
