@@ -23,7 +23,13 @@ setspeedr:  'pass in byte value 0-200 for duty cycle for left motor
 	tempw1=argb1*4
 	pwmduty RmotorPWM, tempw1
 return
-
+setspeeds:  'pass in byte value 0-200 for duty cycle for left motor
+	tempw1=argb1*4
+	tempw2=argb2*4
+	pwmduty RmotorPWM, tempw1
+	pwmduty LmotorPWM, tempw2
+	
+return
 goforward:
 	'sertxd("Going Forward",cr,lf)
 	high LmotorDir1
@@ -117,7 +123,7 @@ leftwalldistance:
 return
 
 
-leftwallalign:
+rightwallalign:
 	gosub goforward
 	do
 	gosub mgetpulses 
@@ -125,16 +131,14 @@ leftwallalign:
 		tempb1 = RFusrf-RBusrf
 		tempb1 = tempb1 * 8 max 60
 		argb1 = 60 - tempb1 '+ 12
-		gosub setspeedr
-		argb1 = 60
-		gosub setspeedl
+		argb2 = 60
+		gosub setspeeds
 	else
 		tempb1 = RBusrf-RFusrf
 		tempb1 = tempb1 * 8 max 60
-		argb1 = 60 - tempb1
-		gosub setspeedl
+		argb2 = 60 - tempb2
 		argb1 = 60 '+ 12
-		gosub setspeedr
+		gosub setspeeds
 	endif
 	loop
 return
