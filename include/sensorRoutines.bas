@@ -40,7 +40,6 @@ tempb1=argb1+slaveusrf_ptr_start   'calculate memory offset for usrf in slave sc
 ;sertxd("getting address ",#tempb1)
 hi2cin tempb1, (returnb1)
 sertxd("usrf #",#argb1,"  data:  ",#returnb1,cr,lf)
-
 return
 
 sgetpulse:
@@ -52,7 +51,7 @@ sgetpulse:
 	endif
 	returnb1=returnw1
 	argb3=slaveusrf_ptr_start+argb3
-	sertxd ("storing utra: ", #returnb1,cr,lf)
+	'sertxd ("storing utra: ", #returnb1,cr,lf)
 	put argb3, returnb1     'store to send for master
 return
 
