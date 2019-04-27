@@ -108,7 +108,18 @@ else
 endif
 return
 
-
+getAlignmentF:
+gosub mgetpulses 
+rightDistance=RFusrf+RBusrf/2 ' average distance from wall 
+  
+ if FRusrf < Flusrf then 
+	 frontDir = 1 
+	 frontAngle = FRusrf - FLusrf 
+else 
+	 frontDir = 0 
+	 frontAngle =FLusrf - FRusrf
+endif
+return
 
 
 
