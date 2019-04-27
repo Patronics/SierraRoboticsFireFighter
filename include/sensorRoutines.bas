@@ -94,3 +94,29 @@ symbol CALVDD = 52429	; 1024*1.024*1000/20  (DAC steps * Ref V / Resolution in m
 	calibadc10 returnw1		; Read the value again because noise may be present :P
 	returnw1 = CALVDD / returnw1 + tempw1	; Calculate Vdd/2 again and add in the first value
 return
+
+getAlignmentR:
+gosub mgetpulses 
+rightDistance=RFusrf+RBusrf/2 ' average distance from wall 
+  
+ if RFusrf < RBusrf then 
+	 rightDir = 1 
+	 rightAngle = RFusrf - Rbusrf
+else 
+	rightDir = 0 
+	rightAngle = RBusrf - RFusrf
+  
+return
+
+
+
+
+
+
+
+
+
+
+
+
+
