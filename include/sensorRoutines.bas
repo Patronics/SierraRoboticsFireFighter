@@ -39,7 +39,7 @@ mgetpulse:
 tempb1=argb1+slaveusrf_ptr_start   'calculate memory offset for usrf in slave scratchpad
 ;sertxd("getting address ",#tempb1)
 hi2cin tempb1, (returnb1)
-sertxd("usrf #",#argb1,"  data:  ",#returnb1,cr,lf)
+'sertxd("usrf #",#argb1,"  data:  ",#returnb1,cr,lf)
 return
 
 sgetpulse:
@@ -101,11 +101,11 @@ rightDistance=RFusrf+RBusrf/2 ' average distance from wall
   
  if RFusrf < RBusrf then 
 	 rightDir = 1 
-	 rightAngle = RFusrf - Rbusrf
+	 rightAngle = RBusrf - RFusrf 
 else 
-	rightDir = 0 
-	rightAngle = RBusrf - RFusrf
-  
+	 rightDir = 0 
+	 rightAngle = RFusrf - RBusrf
+endif
 return
 
 

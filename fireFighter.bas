@@ -29,7 +29,7 @@ main:
 ; data collection for wall alignment and distance 
 gosub mgetpulses 
 gosub getAlignmentR
-
+sertxd("RightDir: ",#rightDir, cr,lf, "RightAngle: ",#RightAngle, cr,lf, "RightDistance", #rightDistance,cr,lf,cr,lf)
 
 
 
@@ -38,8 +38,8 @@ hi2cin slavetimestamp_ptr, (slavetimestamp)
 
 'Simple testing
 
-sertxd("error status flags:  ",#slaveerrorstatusflags,cr,lf)
-sertxd("timestamp:  ",#slavetimestamp,cr,lf)
+'sertxd("error status flags:  ",#slaveerrorstatusflags,cr,lf)
+'sertxd("timestamp:  ",#slavetimestamp,cr,lf)
 
 
 argb1=20
