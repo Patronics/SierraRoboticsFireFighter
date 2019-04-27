@@ -26,6 +26,11 @@ argb1=100
 gosub setspeed   'set speed to 100 (50%)
 
 main:
+; data collection for wall alignment and distance 
+gosub mgetpulses 
+gosub getAlignmentR
+
+
 
 
 hi2cin slaveerrorstatusflags_ptr, (slaveerrorstatusflags)
@@ -38,7 +43,7 @@ sertxd("timestamp:  ",#slavetimestamp,cr,lf)
 
 
 argb1=20
-gosub rightwalldistance
+'gosub rightwalldistance
 
 'gosub rightwallalign
 
