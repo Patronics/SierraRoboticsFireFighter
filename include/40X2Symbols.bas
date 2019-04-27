@@ -44,6 +44,10 @@ symbol BRusrf=usrf5
 symbol BLusrf=usrf6
 symbol LBusrf=usrf7
 symbol LFusrf=usrf8
+
+symbol rightDir = b36 
+symbol rightAngle = b37 
+symbol rightDistance = b38
 '...
 'Motor control pins
 symbol RmotorPWM=C.2   'pwm outputs
