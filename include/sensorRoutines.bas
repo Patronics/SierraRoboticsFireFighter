@@ -110,9 +110,9 @@ return
 
 getAlignmentF:
 gosub mgetpulses 
-rightDistance=RFusrf+RBusrf/2 ' average distance from wall 
+frontDistance=FRusrf+FLusrf/2 ' average distance from wall 
   
- if FRusrf < Flusrf then 
+ if FRusrf < FLusrf then 
 	 frontDir = 1 
 	 frontAngle = FRusrf - FLusrf 
 else 
