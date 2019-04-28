@@ -45,6 +45,17 @@ symbol BLusrf=usrf6
 symbol LBusrf=usrf7
 symbol LFusrf=usrf8
 
+
+symbol SuggestedBehavior=b20
+symbol SuggestionPriority=b21
+symbol SuggestionIntensity=b22
+
+symbol possibleSuggestedBehavior=argb1
+symbol possibleSuggestionPriority=argb2
+symbol possibleSuggestionIntensity=argb3
+
+
+
 symbol rightDir = b36 
 symbol rightAngle = b37 
 symbol rightDistance = b38

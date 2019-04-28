@@ -55,6 +55,10 @@ steerleft:
 	low RmotorDir2
 return
 
+fixedturnright:    ''turn right at a fixed speed
+argb1=100
+gosub setspeed
+      '''Intentionally falls into turnright
 turnright:
 	'sertxd("Turning Right",cr,lf)
 	high LmotorDir1
@@ -63,6 +67,11 @@ turnright:
 	high RmotorDir2
 return
 
+
+fixedturnleft:    ''turn left at a fixed speed
+argb1=100
+gosub setspeed
+      '''Intentionally falls into turnleft
 turnleft:
 	'sertxd("Turning Left",cr,lf)
 	low LmotorDir1
@@ -95,6 +104,19 @@ idlestop:
 	low RmotorDir2
 return 
 
+proportionalSteerRight:
+	gosub goforward
+	argb1 = 60 - SuggestionIntensity
+	argb2 = 60
+	gosub setspeeds
+return
+proportionalSteerLeft:
+	gosub goforward
+	argb2 = 60 - SuggestionIntensity
+	argb1 = 60
+	gosub setspeeds
+return
+
 rightwalldistance:
 	'argb1 specifes target distance in 1/2 cm steps
 	'tempb1 is difference between sensors*scalar
@@ -124,7 +146,57 @@ rightwalldistance:
 	loop
 return
 
-rightwallsuggest:
+resetSuggestion:
+	SuggestedBehavior=0    ''default behavior is to stop
+	SuggestionPriority=0     ''very low priority, overwritten by all other behaviors
+	SuggestionIntensity=0   
+	''''gosub evalSuggestion   'Intentionally removed to override priority higharchy 
+return
+
+
+
+rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
+
+	gosub mgetpulses 
+	gosub getAlignmentR
+	if rightAngle=0 then
+		possibleSuggestedBehavior=1
+		possibleSuggestionPriority=10   ''mild preference for going straight
+		gosub evalSuggestion
+	else
+		if rightDir=0 then   ''tend to align with wall, with medium-low priority
+			possibleSuggestedBehavior=2
+			possibleSuggestionPriority=12+rightAngle max 30
+			possibleSuggestionIntensity=rightAngle*8 max 60
+			gosub evalSuggestion
+		else
+			possibleSuggestedBehavior=3
+			possibleSuggestionPriority=12+rightAngle max 30
+			possibleSuggestionIntensity=rightAngle*8 max 60
+			gosub evalSuggestion
+		endif
+	endif
+return
+
+frontwallsuggest:
+	gosub mgetpulses 
+	gosub getAlignmentF
+	
+	if frontDistance < 32 then
+		if RightDistance < 32 then ''TODO: Make this based on both left and right sensors
+			possibleSuggestedBehavior=5
+			possibleSuggestionPriority=35
+			possibleSuggestionIntensity=35
+			gosub evalSuggestion
+	else' else                (should be more indented)
+			possibleSuggestedBehavior=4
+			possibleSuggestionPriority=35
+			possibleSuggestionIntensity=35
+			gosub evalSuggestion
+	endif'endif           (should be more indented, stupid axepad bug preventing it	
+	
+	endif
+return
 
 rightwallalign:
 	gosub goforward
@@ -146,6 +218,5 @@ rightwallalign:
 	endif
 	loop
 return
-
 
 

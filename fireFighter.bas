@@ -29,7 +29,7 @@ main:
 ; data collection for wall alignment and distance 
 gosub mgetpulses 
 gosub getAlignmentR
-sertxd("RightDir: ",#rightDir, cr,lf, "RightAngle: ",#RightAngle, cr,lf, "RightDistance", #rightDistance,cr,lf,cr,lf)
+'sertxd("RightDir: ",#rightDir, cr,lf, "RightAngle: ",#RightAngle, cr,lf, "RightDistance", #rightDistance,cr,lf,cr,lf)
 
 
 
@@ -42,12 +42,18 @@ hi2cin slavetimestamp_ptr, (slavetimestamp)
 'sertxd("timestamp:  ",#slavetimestamp,cr,lf)
 
 
-argb1=20
+argb1=15
 'gosub rightwalldistance
 
-gosub rightwallalign
 
 
+gosub resetSuggestion
+gosub rightwallsuggest
+gosub frontwallsuggest
+
+sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)
+
+on SuggestedBehavior gosub idlestop, goforward, proportionalSteerRight, proportionalSteerLeft, fixedturnright, fixedturnleft
 
 
 goto main
