@@ -45,7 +45,7 @@ hi2cin slavetimestamp_ptr, (slavetimestamp)
 argb1=20
 'gosub rightwalldistance
 
-'gosub rightwallalign
+gosub rightwallalign
 
 
 

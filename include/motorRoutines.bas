@@ -124,22 +124,24 @@ rightwalldistance:
 	loop
 return
 
+rightwallsuggest:
 
 rightwallalign:
 	gosub goforward
 	do
 	gosub mgetpulses 
-	if RFusrf > RBusrf then 
-		tempb1 = RFusrf-RBusrf
+	gosub getAlignmentR
+	if rightDir=0 then 
+		tempb1 = rightAngle
 		tempb1 = tempb1 * 8 max 60
-		argb1 = 60 - tempb1 '+ 12
+		argb1 = 60 - tempb1
 		argb2 = 60
 		gosub setspeeds
 	else
-		tempb1 = RBusrf-RFusrf
+		tempb1 = rightAngle
 		tempb1 = tempb1 * 8 max 60
-		argb2 = 60 - tempb2
-		argb1 = 60 '+ 12
+		argb2 = 60 - tempb1
+		argb1 = 60
 		gosub setspeeds
 	endif
 	loop

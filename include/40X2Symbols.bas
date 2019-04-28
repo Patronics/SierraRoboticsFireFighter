@@ -48,6 +48,10 @@ symbol LFusrf=usrf8
 symbol rightDir = b36 
 symbol rightAngle = b37 
 symbol rightDistance = b38
+
+symbol frontDir = b40
+symbol frontAngle = b41
+symbol frontDistance = b42
 '...
 'Motor control pins
 symbol RmotorPWM=C.2   'pwm outputs

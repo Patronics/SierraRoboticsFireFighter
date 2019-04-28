@@ -1,7 +1,7 @@
 
 
 #no_table      'to keep the unique identifier of master and slave
-''''NOTE this also automatically does #no_data (so eeprom will be nonfunctional until this is removed
+''''NOTE this also automatically does #no_data (so prepopulating eeprom will be nonfunctional until this is removed
 
 symbol tableID_ptr = 0    'master/slave differentiator location in table
 
