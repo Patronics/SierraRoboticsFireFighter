@@ -29,9 +29,8 @@ main:
 ; data collection for wall alignment and distance 
 gosub mgetpulses 
 gosub getAlignmentR
-'sertxd("RightDir: ",#rightDir, cr,lf, "RightAngle: ",#RightAngle, cr,lf, "RightDistance", #rightDistance,cr,lf,cr,lf)
-
-
+'sertxd("FrontDir: ",#frontDir, cr,lf, "FrontAngle: ",#frontAngle, cr,lf, "FrontDistance", #frontDistance,cr,lf,cr,lf)
+sertxd("RightDir: ", #rightDir, cr, lf, "RightAngle: ", #rightAngle, cr, lf, "RightDistance: ", #rightDistance, cr, lf, cr, lf)
 
 hi2cin slaveerrorstatusflags_ptr, (slaveerrorstatusflags)
 hi2cin slavetimestamp_ptr, (slavetimestamp)
@@ -42,16 +41,18 @@ hi2cin slavetimestamp_ptr, (slavetimestamp)
 'sertxd("timestamp:  ",#slavetimestamp,cr,lf)
 
 
-argb1=15
+'argb1=15
 'gosub rightwalldistance
 
 
-
 gosub resetSuggestion
-gosub rightwallsuggest
-gosub frontwallsuggest
+argb1 = 7
+gosub rightwalldistancesuggest
+'gosub frontwallalignsuggest
+'gosub rightwallsuggest
+'gosub frontwallsuggest
 
-sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)
+'sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)
 
 on SuggestedBehavior gosub idlestop, goforward, proportionalSteerRight, proportionalSteerLeft, fixedturnright, fixedturnleft
 

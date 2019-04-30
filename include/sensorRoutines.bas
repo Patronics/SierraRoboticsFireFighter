@@ -115,10 +115,10 @@ frontDistance=FRusrf+FLusrf/2 ' average distance from wall
   
  if FRusrf < FLusrf then 
 	 frontDir = 1 
-	 frontAngle = FRusrf - FLusrf 
+	 frontAngle = FLusrf - FRusrf 
 else 
 	 frontDir = 0 
-	 frontAngle =FLusrf - FRusrf
+	 frontAngle =FRusrf - FLusrf
 endif
 return
 

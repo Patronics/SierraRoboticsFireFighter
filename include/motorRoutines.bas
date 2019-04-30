@@ -117,6 +117,8 @@ proportionalSteerLeft:
 	gosub setspeeds
 return
 
+
+
 rightwalldistance:
 	'argb1 specifes target distance in 1/2 cm steps
 	'tempb1 is difference between sensors*scalar
@@ -153,8 +155,51 @@ resetSuggestion:
 	''''gosub evalSuggestion   'Intentionally removed to override priority higharchy 
 return
 
+rightwalldistancesuggest:
 
+	tempb1 = argb1
+	gosub mgetpulses
+	gosub getAlignmentR
+	if rightDistance = tempb1 then
+		possibleSuggestedBehavior = 1
+		possibleSuggestionPriority = 10
+		gosub evalSuggestion
+	else if rightDistance > tempb1 then
+		possibleSuggestedBehavior = 2
+		possibleSuggestionPriority = rightDistance - tempb1 * 2 max 35
+		possibleSuggestionIntensity = rightDistance - tempb1 * 6 max 60
+		gosub evalSuggestion
+	else
+		possibleSuggestedBehavior = 3
+		possibleSuggestionPriority = tempb1 - rightDistance * 2 max 35
+		possibleSuggestionIntensity = tempb1 - rightDistance * 6 max 60
+		gosub evalSuggestion
+	endif
+return
 
+frontwallalignsuggest:
+	
+	gosub mgetpulses
+	gosub getAlignmentF
+	if frontAngle = 0 then
+		possibleSuggestedBehavior = 1
+		possibleSuggestionPriority = 10
+		gosub evalSuggestion
+	else
+		if frontDir = 0 then
+			possibleSuggestedBehavior = 3
+			possibleSuggestionPriority =20 + frontAngle max 30
+			possibleSuggestionIntensity= frontAngle * 8 max 60
+			gosub evalSuggestion
+		else
+			possibleSuggestedBehavior= 2
+			possibleSuggestionPriority= 20 + rightAngle max 30
+			possibleSuggestionIntensity=rightAngle * 8 max 60
+			gosub evalSuggestion
+		endif
+	endif
+	
+return
 rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 
 	gosub mgetpulses 
