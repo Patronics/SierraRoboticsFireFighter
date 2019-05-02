@@ -77,6 +77,9 @@ symbol LmotorPWM=C.1   'pwm outputs
 symbol LmotorDir1=D.1  ' B.6    may need reorganizing
 symbol RmotorDir2=D.2  ' B.5    may need reorganizing
 symbol RmotorDir1=D.3  ' B.4    may need reorganizing
+
+symbol fanpin = j21c     'Active low!
+
 'symbol LmotorForward=LmotorDir1
 'symbol LmotorReverse=LmotorDir2
 'symbol RmotorForward=RmotorDir1

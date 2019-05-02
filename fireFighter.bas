@@ -46,13 +46,14 @@ hi2cin slavetimestamp_ptr, (slavetimestamp)
 
 
 gosub resetSuggestion
-argb1 = 7
-gosub rightwalldistancesuggest
+'argb1 = 7
+'gosub rightwalldistancesuggest
 'gosub frontwallalignsuggest
-'gosub rightwallsuggest
+gosub rightwallsuggest
 'gosub frontwallsuggest
 
-'sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)
+'fan :low j21c
+sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)
 
 on SuggestedBehavior gosub idlestop, goforward, proportionalSteerRight, proportionalSteerLeft, fixedturnright, fixedturnleft
 

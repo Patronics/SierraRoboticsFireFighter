@@ -30,3 +30,27 @@ symbol j18b=C.1
 
 symbol j19a=A.2
 symbol j19b=C.0
+
+
+''''''SYMBOLS FOR MASTER (to avoid syntax error when using slavecompile
+''otherwise unused
+symbol SuggestedBehavior=b20
+symbol SuggestionPriority=b21
+symbol SuggestionIntensity=b22
+
+symbol possibleSuggestedBehavior=argb1
+symbol possibleSuggestionPriority=argb2
+symbol possibleSuggestionIntensity=argb3
+
+
+
+symbol rightDir = b36 
+symbol rightAngle = b37 
+symbol rightDistance = b38
+
+symbol frontDir = b40
+symbol frontAngle = b41
+symbol frontDistance = b42
+
+
+'''''END OF MASTER SYMBOLS

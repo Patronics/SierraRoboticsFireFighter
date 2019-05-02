@@ -106,14 +106,14 @@ return
 
 proportionalSteerRight:
 	gosub goforward
-	argb1 = 60 - SuggestionIntensity
-	argb2 = 60
+	argb1 = 60 - SuggestionIntensity /2
+	argb2 = 60/2
 	gosub setspeeds
 return
 proportionalSteerLeft:
 	gosub goforward
-	argb2 = 60 - SuggestionIntensity
-	argb1 = 60
+	argb2 = 60 - SuggestionIntensity /2
+	argb1 = 60 /2
 	gosub setspeeds
 return
 
@@ -158,32 +158,46 @@ return
 rightwalldistancesuggest:
 
 	tempb1 = argb1
-	gosub mgetpulses
+	
 	gosub getAlignmentR
-	if rightDistance = tempb1 then
-		possibleSuggestedBehavior = 1
-		possibleSuggestionPriority = 10
+	tempb2 = tempb1 + 3 'upper bound allowance
+	tempb3 = tempb1 - 3 'lower bound allowance
+	if rightDistance < tempb1 then
+		possibleSuggestedBehavior = 3
+		possibleSuggestionPriority = tempb1 - rightDistance * 2 max 35
+		possibleSuggestionIntensity = 30 'tempb1 - rightDistance * 6 max 50
+		'argb1 = 60 -30
+		'argb2 = 60
+		'gosub steerleft
 		gosub evalSuggestion
+	
 	else if rightDistance > tempb1 then
 		possibleSuggestedBehavior = 2
 		possibleSuggestionPriority = rightDistance - tempb1 * 2 max 35
-		possibleSuggestionIntensity = rightDistance - tempb1 * 6 max 60
+		'argb1 = 60
+		'argb2 = 60 - 30
+		'gosub steerright
+		possibleSuggestionIntensity = 30 'rightDistance - tempb1 * 6 max 50
 		gosub evalSuggestion
 	else
-		possibleSuggestedBehavior = 3
-		possibleSuggestionPriority = tempb1 - rightDistance * 2 max 35
-		possibleSuggestionIntensity = tempb1 - rightDistance * 6 max 60
+		possibleSuggestedBehavior = 1
+		possibleSuggestionPriority = 10
+		'argb1 = 60
+		'argb2 = 60
+		'gosub goforward
 		gosub evalSuggestion
+		
 	endif
+	
+	
 return
 
 frontwallalignsuggest:
-	
-	gosub mgetpulses
+
 	gosub getAlignmentF
 	if frontAngle = 0 then
 		possibleSuggestedBehavior = 1
-		possibleSuggestionPriority = 10
+		possibleSuggestionPriority = 2
 		gosub evalSuggestion
 	else
 		if frontDir = 0 then
@@ -197,8 +211,7 @@ frontwallalignsuggest:
 			possibleSuggestionIntensity=rightAngle * 8 max 60
 			gosub evalSuggestion
 		endif
-	endif
-	
+	endif	
 return
 rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 
