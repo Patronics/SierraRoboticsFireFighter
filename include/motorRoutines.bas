@@ -160,20 +160,20 @@ rightwalldistancesuggest:
 	tempb1 = argb1
 	
 	gosub getAlignmentR
-	tempb2 = tempb1 + 3 'upper bound allowance
-	tempb3 = tempb1 - 3 'lower bound allowance
-	if rightDistance < tempb1 then
+	tempb2 = tempb1 + 2 'upper bound allowance
+	tempb3 = tempb1 - 2 'lower bound allowance
+	if rightDistance < tempb3 then
 		possibleSuggestedBehavior = 3
-		possibleSuggestionPriority = tempb1 - rightDistance * 2 max 35
+		possibleSuggestionPriority = tempb1 - rightDistance * 4 max 45
 		possibleSuggestionIntensity = 30 'tempb1 - rightDistance * 6 max 50
 		'argb1 = 60 -30
 		'argb2 = 60
 		'gosub steerleft
 		gosub evalSuggestion
 	
-	else if rightDistance > tempb1 then
+	else if rightDistance > tempb2 then
 		possibleSuggestedBehavior = 2
-		possibleSuggestionPriority = rightDistance - tempb1 * 2 max 35
+		possibleSuggestionPriority = rightDistance - tempb1 * 4 max 45
 		'argb1 = 60
 		'argb2 = 60 - 30
 		'gosub steerright
@@ -181,7 +181,7 @@ rightwalldistancesuggest:
 		gosub evalSuggestion
 	else
 		possibleSuggestedBehavior = 1
-		possibleSuggestionPriority = 10
+		possibleSuggestionPriority = 5
 		'argb1 = 60
 		'argb2 = 60
 		'gosub goforward
@@ -225,12 +225,12 @@ rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 		if rightDir=0 then   ''tend to align with wall, with medium-low priority
 			possibleSuggestedBehavior=2
 			possibleSuggestionPriority=12+rightAngle max 30
-			possibleSuggestionIntensity=rightAngle*8 max 60
+			possibleSuggestionIntensity=30 'rightAngle*8 max 60
 			gosub evalSuggestion
 		else
 			possibleSuggestedBehavior=3
 			possibleSuggestionPriority=12+rightAngle max 30
-			possibleSuggestionIntensity=rightAngle*8 max 60
+			possibleSuggestionIntensity=30 'rightAngle*8 max 60
 			gosub evalSuggestion
 		endif
 	endif
@@ -243,12 +243,12 @@ frontwallsuggest:
 	if frontDistance < 32 then
 		if RightDistance < 32 then ''TODO: Make this based on both left and right sensors
 			possibleSuggestedBehavior=5
-			possibleSuggestionPriority=35
+			possibleSuggestionPriority=50
 			possibleSuggestionIntensity=35
 			gosub evalSuggestion
 	else' else                (should be more indented)
 			possibleSuggestedBehavior=4
-			possibleSuggestionPriority=35
+			possibleSuggestionPriority=50
 			possibleSuggestionIntensity=35
 			gosub evalSuggestion
 	endif'endif           (should be more indented, stupid axepad bug preventing it	
