@@ -13,9 +13,9 @@ symbol j22a=C.0  'when set to high will turn on indicators
 symbol j22b=B.2
 symbol j22c=C.7
 
-symbol red = j22a
-symbol blue = j22b 
-symbol green = j22c
+symbol white = j22a
+symbol green = j22b 
+symbol red = j22c
 
 symbol j23a=A.7
 symbol j23b=B.1

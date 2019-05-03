@@ -139,17 +139,23 @@ return
  	
  	low red
  	low green 
- 	low blue
+ 	low white
  	if suggestedbehavior= 2 then
- 		high blue 
+ 		high white
+ 		low red
+ 		low green 
  	else if suggestedbehavior = 3 then
  		high red
+ 		low green
+ 		low white
  	else if suggestedbehavior = 1 then
  		high green
+ 		low red
+ 		low green
  	else
  		low red
  		low green
- 		low blue
+ 		low white
  	endif
  	
  return
