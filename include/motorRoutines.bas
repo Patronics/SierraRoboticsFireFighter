@@ -106,14 +106,14 @@ return
 
 proportionalSteerRight:
 	gosub goforward
-	argb1 = 60 - SuggestionIntensity /2
-	argb2 = 60/2
+	argb1 = 60 - SuggestionIntensity
+	argb2 = 60
 	gosub setspeeds
 return
 proportionalSteerLeft:
 	gosub goforward
-	argb2 = 60 - SuggestionIntensity /2
-	argb1 = 60 /2
+	argb2 = 60 - SuggestionIntensity
+	argb1 = 60
 	gosub setspeeds
 return
 
@@ -153,6 +153,53 @@ resetSuggestion:
 	SuggestionPriority=0     ''very low priority, overwritten by all other behaviors
 	SuggestionIntensity=0   
 	''''gosub evalSuggestion   'Intentionally removed to override priority higharchy 
+return
+rightwalldistancesuggestV:
+
+	tempb1 = argb4 
+	gosub getAlignmentR
+	tempb2 = tempb1 + 2 'upper bound allowance
+	tempb3 = tempb1 - 2 'lower bound allowance
+	if rightAngle < 8 then
+		if rightDistance < tempb1 then
+			possibleSuggestedBehavior = 3
+			possibleSuggestionPriority = tempb1 - rightDistance * 8 max 50
+			possibleSuggestionIntensity = tempb1 - rightDistance * 6 max 50
+			'argb1 =50
+			'argb2 = 30
+			'gosub setspeeds
+			'gosub goforward
+			gosub evalSuggestion 
+			'high blue low red low green
+	
+		else if rightDistance > tempb1 then
+			possibleSuggestedBehavior = 2
+			possibleSuggestionPriority = rightDistance - tempb1 * 8 max 50
+			'argb1 = 50
+			'argb2 = 30
+			'gosub setspeeds
+			'gosub goforward 
+			'high red low blue low green
+			possibleSuggestionIntensity = rightDistance - tempb1 * 6 max 50
+			gosub evalSuggestion
+		else
+			possibleSuggestedBehavior = 1
+			possibleSuggestionPriority = 5
+			'argb1 = 50
+			'argb2 = 50
+			'gosub setspeeds
+			'gosub goforward 
+			'high green low red low blue
+			gosub evalSuggestion
+		
+		endif
+		
+	else
+		gosub rightwallsuggest
+		
+	endif
+	
+	
 return
 
 rightwalldistancesuggest:
@@ -225,13 +272,21 @@ rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 		if rightDir=0 then   ''tend to align with wall, with medium-low priority
 			possibleSuggestedBehavior=2
 			possibleSuggestionPriority=12+rightAngle max 30
-			possibleSuggestionIntensity=30 'rightAngle*8 max 60
+			possibleSuggestionIntensity=rightAngle*8 max 60
 			gosub evalSuggestion
+			'argb1 =30
+			'argb2 = 50
+			'gosub setspeeds
+			'gosub goforward
 		else
 			possibleSuggestedBehavior=3
 			possibleSuggestionPriority=12+rightAngle max 30
-			possibleSuggestionIntensity=30 'rightAngle*8 max 60
+			possibleSuggestionIntensity=rightAngle*8 max 60
 			gosub evalSuggestion
+			'argb1 = 50
+			'argb2 = 30
+			'gosub setspeeds
+			'gosub goforward
 		endif
 	endif
 return

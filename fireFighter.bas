@@ -22,7 +22,7 @@ gosub setupmotors
 popram
 
 
-argb1=100
+argb1=10
 gosub setspeed   'set speed to 100 (50%)
 
 main:
@@ -46,14 +46,16 @@ hi2cin slavetimestamp_ptr, (slavetimestamp)
 
 
 gosub resetSuggestion
-'argb1 = 7
+argb4 = 7
+gosub rightwalldistancesuggestV
 'gosub rightwalldistancesuggest
 'gosub frontwallalignsuggest
-gosub rightwallsuggest
+'gosub rightwallsuggest
 'gosub frontwallsuggest
 
 'fan :low j21c
 sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)
+gosub debugled
 
 on SuggestedBehavior gosub idlestop, goforward, proportionalSteerRight, proportionalSteerLeft, fixedturnright, fixedturnleft
 

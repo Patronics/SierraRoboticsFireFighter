@@ -19,7 +19,9 @@ mgetpulses:
 bptr = 24
 for loopCount = 0 to 7
 	argb1 = loopCount
+	pushram
 	gosub mgetpulse
+	popram
 	@bptrinc = returnb1
 next
 	
@@ -131,7 +133,26 @@ symbol CALVDD = 52429	; 1024*1.024*1000/20  (DAC steps * Ref V / Resolution in m
 	calibadc10 returnw1		; Read the value again because noise may be present :P
 	returnw1 = CALVDD / returnw1 + tempw1	; Calculate Vdd/2 again and add in the first value
 return
-
+ 
+ 
+ debugled: 
+ 	
+ 	low red
+ 	low green 
+ 	low blue
+ 	if suggestedbehavior= 2 then
+ 		high blue 
+ 	else if suggestedbehavior = 3 then
+ 		high red
+ 	else if suggestedbehavior = 1 then
+ 		high green
+ 	else
+ 		low red
+ 		low green
+ 		low blue
+ 	endif
+ 	
+ return
 
 
 
