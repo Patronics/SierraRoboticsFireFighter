@@ -56,7 +56,7 @@ steerleft:
 return
 
 fixedturnright:    ''turn right at a fixed speed
-argb1= 80 '100
+argb1=100
 gosub setspeed
       '''Intentionally falls into turnright
 turnright:
@@ -69,7 +69,7 @@ return
 
 
 fixedturnleft:    ''turn left at a fixed speed
-argb1= 80 '100
+argb1=100
 gosub setspeed
       '''Intentionally falls into turnleft
 turnleft:
@@ -106,16 +106,28 @@ return
 
 proportionalSteerRight:
 	gosub goforward
-	argb1 = 60 - SuggestionIntensity * 2 / 3
-	argb2 = 60 * 2 / 3
+	argb1 = 60 - SuggestionIntensity
+	argb2 = 60
 	gosub setspeeds
 return
 proportionalSteerLeft:
 	gosub goforward
-	argb2 = 60 - SuggestionIntensity * 2 / 3
-	argb1 = 60 * 2 / 3
+	argb2 = 60 - SuggestionIntensity
+	argb1 = 60
 	gosub setspeeds
 return
+
+
+flamecheck:
+
+if firesense then 
+	low fanpin
+else
+	high fanpin
+endif
+return
+
+
 
 
 
@@ -158,9 +170,9 @@ rightwalldistancesuggestV:
 
 	tempb1 = argb4 
 	gosub getAlignmentR
-	tempb2 = tempb1 + 10 'upper bound allowance
+	tempb2 = tempb1 + 2 'upper bound allowance
 	tempb3 = tempb1 - 2 'lower bound allowance
-	if rightAngle < 3 then
+	if rightAngle < 8 then
 		if rightDistance < tempb1 then
 			possibleSuggestedBehavior = 3
 			possibleSuggestionPriority = tempb1 - rightDistance * 8 max 50
@@ -169,25 +181,22 @@ rightwalldistancesuggestV:
 			'argb2 = 30
 			'gosub setspeeds
 			'gosub goforward
-			sertxd("I am too close to the wall", cr, lf, "SuggestedBehavior: ", #possibleSuggestedBehavior, cr, lf )
 			gosub evalSuggestion 
 			'high blue low red low green
 	
 		else if rightDistance > tempb1 then
 			possibleSuggestedBehavior = 2
-			possibleSuggestionPriority = rightDistance - tempb1 * 10 max 50 '8
+			possibleSuggestionPriority = rightDistance - tempb1 * 8 max 50
 			'argb1 = 50
 			'argb2 = 30
 			'gosub setspeeds
 			'gosub goforward 
 			'high red low blue low green
-			sertxd("I am too far to the wall", cr, lf, "SuggestedBehavior: ", #possibleSuggestedBehavior, cr, lf )
 			possibleSuggestionIntensity = rightDistance - tempb1 * 6 max 50
 			gosub evalSuggestion
 		else
 			possibleSuggestedBehavior = 1
 			possibleSuggestionPriority = 5
-			sertxd("I am perfectly close to the wall", cr, lf, "SuggestedBehavior: ", #possibleSuggestedBehavior, cr, lf )
 			'argb1 = 50
 			'argb2 = 50
 			'gosub setspeeds
@@ -281,7 +290,6 @@ rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 			'argb2 = 50
 			'gosub setspeeds
 			'gosub goforward
-			sertxd("I am angled too much away from the wall", cr, lf, "SuggestedBehavior: ", #possibleSuggestedBehavior, cr, lf)
 		else
 			possibleSuggestedBehavior=3
 			possibleSuggestionPriority=12+rightAngle max 30
@@ -291,7 +299,6 @@ rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 			'argb2 = 30
 			'gosub setspeeds
 			'gosub goforward
-			sertxd("I am angled too nuch towards the wall", cr, lf, "SuggestedBehavior: ", #possibleSuggestedBehavior, cr, lf )
 		endif
 	endif
 return
