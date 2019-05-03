@@ -106,16 +106,29 @@ return
 
 proportionalSteerRight:
 	gosub goforward
-	argb1 = 60 - SuggestionIntensity /2
-	argb2 = 60/2
+	argb1 = 60 - SuggestionIntensity
+	argb2 = 60
 	gosub setspeeds
 return
 proportionalSteerLeft:
 	gosub goforward
-	argb2 = 60 - SuggestionIntensity /2
-	argb1 = 60 /2
+	argb2 = 60 - SuggestionIntensity
+	argb1 = 60
 	gosub setspeeds
 return
+
+flamereact:
+
+if firesense then
+	
+	low fanpin
+	
+else
+	high fanpin
+	
+	
+return
+
 
 
 
@@ -148,6 +161,10 @@ rightwalldistance:
 	loop
 return
 
+
+
+
+
 resetSuggestion:
 	SuggestedBehavior=0    ''default behavior is to stop
 	SuggestionPriority=0     ''very low priority, overwritten by all other behaviors
@@ -155,64 +172,8 @@ resetSuggestion:
 	''''gosub evalSuggestion   'Intentionally removed to override priority higharchy 
 return
 
-rightwalldistancesuggest:
 
-	tempb1 = argb1
-	
-	gosub getAlignmentR
-	tempb2 = tempb1 + 2 'upper bound allowance
-	tempb3 = tempb1 - 2 'lower bound allowance
-	if rightDistance < tempb3 then
-		possibleSuggestedBehavior = 3
-		possibleSuggestionPriority = tempb1 - rightDistance * 4 max 45
-		possibleSuggestionIntensity = 30 'tempb1 - rightDistance * 6 max 50
-		'argb1 = 60 -30
-		'argb2 = 60
-		'gosub steerleft
-		gosub evalSuggestion
-	
-	else if rightDistance > tempb2 then
-		possibleSuggestedBehavior = 2
-		possibleSuggestionPriority = rightDistance - tempb1 * 4 max 45
-		'argb1 = 60
-		'argb2 = 60 - 30
-		'gosub steerright
-		possibleSuggestionIntensity = 30 'rightDistance - tempb1 * 6 max 50
-		gosub evalSuggestion
-	else
-		possibleSuggestedBehavior = 1
-		possibleSuggestionPriority = 5
-		'argb1 = 60
-		'argb2 = 60
-		'gosub goforward
-		gosub evalSuggestion
-		
-	endif
-	
-	
-return
 
-frontwallalignsuggest:
-
-	gosub getAlignmentF
-	if frontAngle = 0 then
-		possibleSuggestedBehavior = 1
-		possibleSuggestionPriority = 2
-		gosub evalSuggestion
-	else
-		if frontDir = 0 then
-			possibleSuggestedBehavior = 3
-			possibleSuggestionPriority =20 + frontAngle max 30
-			possibleSuggestionIntensity= frontAngle * 8 max 60
-			gosub evalSuggestion
-		else
-			possibleSuggestedBehavior= 2
-			possibleSuggestionPriority= 20 + rightAngle max 30
-			possibleSuggestionIntensity=rightAngle * 8 max 60
-			gosub evalSuggestion
-		endif
-	endif	
-return
 rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 
 	gosub mgetpulses 
@@ -225,12 +186,12 @@ rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 		if rightDir=0 then   ''tend to align with wall, with medium-low priority
 			possibleSuggestedBehavior=2
 			possibleSuggestionPriority=12+rightAngle max 30
-			possibleSuggestionIntensity=30 'rightAngle*8 max 60
+			possibleSuggestionIntensity=rightAngle*8 max 60
 			gosub evalSuggestion
 		else
 			possibleSuggestedBehavior=3
 			possibleSuggestionPriority=12+rightAngle max 30
-			possibleSuggestionIntensity=30 'rightAngle*8 max 60
+			possibleSuggestionIntensity=rightAngle*8 max 60
 			gosub evalSuggestion
 		endif
 	endif
@@ -243,12 +204,12 @@ frontwallsuggest:
 	if frontDistance < 32 then
 		if RightDistance < 32 then ''TODO: Make this based on both left and right sensors
 			possibleSuggestedBehavior=5
-			possibleSuggestionPriority=50
+			possibleSuggestionPriority=35
 			possibleSuggestionIntensity=35
 			gosub evalSuggestion
 	else' else                (should be more indented)
 			possibleSuggestedBehavior=4
-			possibleSuggestionPriority=50
+			possibleSuggestionPriority=35
 			possibleSuggestionIntensity=35
 			gosub evalSuggestion
 	endif'endif           (should be more indented, stupid axepad bug preventing it	

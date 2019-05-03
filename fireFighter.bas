@@ -26,11 +26,13 @@ argb1=100
 gosub setspeed   'set speed to 100 (50%)
 
 main:
+gosub flamereact
 ; data collection for wall alignment and distance 
 gosub mgetpulses 
 gosub getAlignmentR
-'sertxd("FrontDir: ",#frontDir, cr,lf, "FrontAngle: ",#frontAngle, cr,lf, "FrontDistance", #frontDistance,cr,lf,cr,lf)
-sertxd("RightDir: ", #rightDir, cr, lf, "RightAngle: ", #rightAngle, cr, lf, "RightDistance: ", #rightDistance, cr, lf, cr, lf)
+'sertxd("RightDir: ",#rightDir, cr,lf, "RightAngle: ",#RightAngle, cr,lf, "RightDistance", #rightDistance,cr,lf,cr,lf)
+
+
 
 hi2cin slaveerrorstatusflags_ptr, (slaveerrorstatusflags)
 hi2cin slavetimestamp_ptr, (slavetimestamp)
@@ -41,18 +43,15 @@ hi2cin slavetimestamp_ptr, (slavetimestamp)
 'sertxd("timestamp:  ",#slavetimestamp,cr,lf)
 
 
-'argb1=15
+argb1=15
 'gosub rightwalldistance
 
 
-gosub resetSuggestion
-'argb1 = 7
-'gosub rightwalldistancesuggest
-'gosub frontwallalignsuggest
-gosub rightwallsuggest
-'gosub frontwallsuggest
 
-'fan :low j21c
+gosub resetSuggestion
+gosub rightwallsuggest
+gosub frontwallsuggest
+
 sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)
 
 on SuggestedBehavior gosub idlestop, goforward, proportionalSteerRight, proportionalSteerLeft, fixedturnright, fixedturnleft

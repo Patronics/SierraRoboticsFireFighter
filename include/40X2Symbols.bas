@@ -5,9 +5,10 @@
 symbol tableID = "M"
 
 
-symbol j21a=A.0
+symbol j21a=A.0    'flame sensor
+symbol j21ain=pinA.0
 symbol j21b=A.1
-symbol j21c=A.2
+symbol j21c=A.2    'fan output
 
 symbol j22a=C.0  'when set to high will turn on indicators
 symbol j22b=B.2
@@ -83,7 +84,7 @@ symbol RmotorDir2=D.2  ' B.5    may need reorganizing
 symbol RmotorDir1=D.3  ' B.4    may need reorganizing
 
 symbol fanpin = j21c     'Active low!
-
+symbol firesense = j21ain
 'symbol LmotorForward=LmotorDir1
 'symbol LmotorReverse=LmotorDir2
 'symbol RmotorForward=RmotorDir1
