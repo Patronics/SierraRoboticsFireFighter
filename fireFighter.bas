@@ -30,7 +30,7 @@ main:
 gosub mgetpulses 
 gosub getAlignmentR
 'sertxd("FrontDir: ",#frontDir, cr,lf, "FrontAngle: ",#frontAngle, cr,lf, "FrontDistance", #frontDistance,cr,lf,cr,lf)
-sertxd("RightDir: ", #rightDir, cr, lf, "RightAngle: ", #rightAngle, cr, lf, "RightDistance: ", #rightDistance, cr, lf, cr, lf)
+'sertxd("RightDir: ", #rightDir, cr, lf, "RightAngle: ", #rightAngle, cr, lf, "RightDistance: ", #rightDistance, cr, lf, cr, lf)
 
 hi2cin slaveerrorstatusflags_ptr, (slaveerrorstatusflags)
 hi2cin slavetimestamp_ptr, (slavetimestamp)
@@ -51,7 +51,7 @@ gosub rightwalldistancesuggestV
 'gosub rightwalldistancesuggest
 'gosub frontwallalignsuggest
 'gosub rightwallsuggest
-'gosub frontwallsuggest
+gosub frontwallsuggest
 
 'fan :low j21c
 sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)
