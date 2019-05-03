@@ -24,7 +24,7 @@ popram
 
 argb1=10
 gosub setspeed   'set speed to 100 (50%)
-
+high fanpin 'starts with the fan off
 main:
 ; data collection for wall alignment and distance 
 gosub mgetpulses 

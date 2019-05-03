@@ -119,12 +119,34 @@ return
 
 
 flamecheck:
-
+gosub mgetpulses
 if firesense = 1 then 
+	if timer = 0 then
+		settimer t1s_8
+	endif
+	
+	
 	low fanpin
-else
-	high fanpin
+	possibleSuggestedBehavior= 6
+	possibleSuggestionPriority= 150
+	possibleSuggestionIntensity= 35
+	gosub evalSuggestion
+	sertxd("fire stop everything", cr, lf)
+else 
+	'high fanpin
 endif
+if timer > 5 then
+		settimer off
+		high fanpin
+		timer = 0
+		argb1= 15
+		gosub setspeed
+		gosub goforward
+else if timer > 0 and timer < 5 then
+		
+	
+	endif
+	
 return
 
 
