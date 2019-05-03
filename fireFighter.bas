@@ -30,7 +30,7 @@ main:
 gosub mgetpulses 
 gosub getAlignmentR
 'sertxd("FrontDir: ",#frontDir, cr,lf, "FrontAngle: ",#frontAngle, cr,lf, "FrontDistance", #frontDistance,cr,lf,cr,lf)
-sertxd("RightDir: ", #rightDir, cr, lf, "RightAngle: ", #rightAngle, cr, lf, "RightDistance: ", #rightDistance, cr, lf, cr, lf)
+'sertxd("RightDir: ", #rightDir, cr, lf, "RightAngle: ", #rightAngle, cr, lf, "RightDistance: ", #rightDistance, cr, lf, cr, lf)
 
 hi2cin slaveerrorstatusflags_ptr, (slaveerrorstatusflags)
 hi2cin slavetimestamp_ptr, (slavetimestamp)
@@ -43,21 +43,22 @@ hi2cin slavetimestamp_ptr, (slavetimestamp)
 
 'argb1=15
 'gosub rightwalldistance
-gosub flamecheck
 
+gosub flamecheck
 gosub resetSuggestion
-argb4 = 7
+argb4 = 15
 gosub rightwalldistancesuggestV
+'gosub emergencystop
 'gosub rightwalldistancesuggest
 'gosub frontwallalignsuggest
 'gosub rightwallsuggest
-'gosub frontwallsuggest
+gosub frontwallsuggest
 
 'fan :low j21c
 sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)
 gosub debugled
 
-on SuggestedBehavior gosub idlestop, goforward, proportionalSteerRight, proportionalSteerLeft, fixedturnright, fixedturnleft
+on SuggestedBehavior gosub idlestop, goforward, proportionalSteerRight, proportionalSteerLeft, fixedturnright, fixedturnleft, powerstop
 
 
 goto main

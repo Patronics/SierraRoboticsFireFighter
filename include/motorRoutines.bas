@@ -56,7 +56,7 @@ steerleft:
 return
 
 fixedturnright:    ''turn right at a fixed speed
-argb1=100
+argb1=80
 gosub setspeed
       '''Intentionally falls into turnright
 turnright:
@@ -69,7 +69,7 @@ return
 
 
 fixedturnleft:    ''turn left at a fixed speed
-argb1=100
+argb1=80
 gosub setspeed
       '''Intentionally falls into turnleft
 turnleft:
@@ -106,21 +106,21 @@ return
 
 proportionalSteerRight:
 	gosub goforward
-	argb1 = 60 - SuggestionIntensity
-	argb2 = 60
+	argb1 = 60 - SuggestionIntensity * 4 / 5
+	argb2 = 60 * 4 / 5
 	gosub setspeeds
 return
 proportionalSteerLeft:
 	gosub goforward
-	argb2 = 60 - SuggestionIntensity
-	argb1 = 60
+	argb2 = 60 - SuggestionIntensity * 4 / 5
+	argb1 = 60 * 4 / 5
 	gosub setspeeds
 return
 
 
 flamecheck:
 
-if firesense then 
+if firesense = 1 then 
 	low fanpin
 else
 	high fanpin
@@ -172,26 +172,28 @@ rightwalldistancesuggestV:
 	gosub getAlignmentR
 	tempb2 = tempb1 + 2 'upper bound allowance
 	tempb3 = tempb1 - 2 'lower bound allowance
-	if rightAngle < 8 then
+	if rightAngle < 3 then
 		if rightDistance < tempb1 then
 			possibleSuggestedBehavior = 3
-			possibleSuggestionPriority = tempb1 - rightDistance * 8 max 50
+			possibleSuggestionPriority = tempb1 - rightDistance * 8 max 45
 			possibleSuggestionIntensity = tempb1 - rightDistance * 6 max 50
 			'argb1 =50
 			'argb2 = 30
 			'gosub setspeeds
 			'gosub goforward
+			sertxd("Too close to the wall")
 			gosub evalSuggestion 
 			'high blue low red low green
 	
 		else if rightDistance > tempb1 then
 			possibleSuggestedBehavior = 2
-			possibleSuggestionPriority = rightDistance - tempb1 * 8 max 50
+			possibleSuggestionPriority = rightDistance - tempb1 * 8 max 45
 			'argb1 = 50
 			'argb2 = 30
 			'gosub setspeeds
 			'gosub goforward 
 			'high red low blue low green
+			sertxd("Too far from the wall")
 			possibleSuggestionIntensity = rightDistance - tempb1 * 6 max 50
 			gosub evalSuggestion
 		else
@@ -202,6 +204,7 @@ rightwalldistancesuggestV:
 			'gosub setspeeds
 			'gosub goforward 
 			'high green low red low blue
+			sertxd("Perfect to the wall")
 			gosub evalSuggestion
 		
 		endif
@@ -286,6 +289,7 @@ rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 			possibleSuggestionPriority=12+rightAngle max 30
 			possibleSuggestionIntensity=rightAngle*8 max 60
 			gosub evalSuggestion
+			sertxd("Angled away from the wall")
 			'argb1 =30
 			'argb2 = 50
 			'gosub setspeeds
@@ -294,6 +298,7 @@ rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 			possibleSuggestedBehavior=3
 			possibleSuggestionPriority=12+rightAngle max 30
 			possibleSuggestionIntensity=rightAngle*8 max 60
+			sertxd("Angled toward the wall")
 			gosub evalSuggestion
 			'argb1 = 50
 			'argb2 = 30
@@ -307,7 +312,7 @@ frontwallsuggest:
 	gosub mgetpulses 
 	gosub getAlignmentF
 	
-	if frontDistance < 32 then
+	if frontDistance < 35 then
 		if RightDistance < 32 then ''TODO: Make this based on both left and right sensors
 			possibleSuggestedBehavior=5
 			possibleSuggestionPriority=50
@@ -344,4 +349,42 @@ rightwallalign:
 	loop
 return
 
-
+emergencystop:
+	pushram
+	gosub mgetpulses
+	gosub getAlignmentR
+	gosub getAlignmentF
+	tempb1 = usrf1
+	tempb2 = usrf2
+	tempb3 = usrf3
+	if tempb3 < 2 then 'side sensor
+		possibleSuggestedBehavior = 6
+		possibleSuggestionPriority= 100
+		possibleSuggestionIntensity = 100
+		gosub evalSuggestion 
+		high green, white 
+		low red
+	else if tempb1 < 6 then 'Front left sensor
+		possibleSuggestedBehavior = 6
+		possibleSuggestionPriority= 100
+		possibleSuggestionIntensity = 100
+		gosub evalSuggestion
+		high white
+		high red 
+		low green
+	else if tempb2 < 6 then  ' front right sensor
+		possibleSuggestedBehavior = 6
+		possibleSuggestionPriority= 100
+		possibleSuggestionIntensity = 100
+		high white
+		high red
+		low green
+		gosub evalSuggestion
+	else 
+		possibleSuggestedBehavior = 1
+		possibleSuggestionPriority= 1
+		possibleSuggestionIntensity = 10
+		gosub evalSuggestion
+	endif
+	popram
+return
