@@ -319,7 +319,7 @@ return
 'return
 rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 
-	'gosub mgetpulses 
+	gosub mgetpulses 
 	gosub getAlignmentR
 	if rightAngle = 0  then
 		possibleSuggestedBehavior=1
@@ -351,18 +351,18 @@ rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 return
 
 frontwallsuggest:
-	'gosub mgetpulses 
+	gosub mgetpulses 
 	gosub getAlignmentF
 	
 	if frontDistance < 40 then
 		if RightDistance < 32 then ''TODO: Make this based on both left and right sensors
 			possibleSuggestedBehavior=5
-			possibleSuggestionPriority=50
+			possibleSuggestionPriority=65
 			possibleSuggestionIntensity=35
 			gosub evalSuggestion
 	else' else                (should be more indented)
 			possibleSuggestedBehavior=4
-			possibleSuggestionPriority=50
+			possibleSuggestionPriority=65
 			possibleSuggestionIntensity=35
 			gosub evalSuggestion
 	endif'endif           (should be more indented, stupid axepad bug preventing it	

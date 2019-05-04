@@ -31,14 +31,14 @@ do while gobutton = 0
 	high red
 	toggle white, green
 loop
-argb1=50 'was 10 changed to 50
+argb1=70 'was 10 changed to 50
 gosub setspeed   'set speed to 10 (5%)
 
 'if timer = 0 then   ''should be unnecessary. delete?
 'settimer t1s_8
 'endif
 gosub goforward
-pause 3000
+pause 2100
  'do while timer < 3 
 '	gosub goforward
  'loop
