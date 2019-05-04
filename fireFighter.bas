@@ -14,7 +14,7 @@ goto start
    '''To consider: worth making a setup.bas include file? or keep in main file?
    
 start: 
-timer=10   '''Hacky very bad workaround, fixes immediate fanning. should fix in flamecheck
+timer = 10
 gosub verifychip
 hi2csetup i2cmaster, slaveaddr, i2cfast, i2cbyte
 
@@ -31,14 +31,14 @@ do while gobutton = 0
 	high red
 	toggle white, green
 loop
-argb1=70 'was 10 changed to 50
+argb1=50 'was 10 changed to 50
 gosub setspeed   'set speed to 10 (5%)
 
 'if timer = 0 then   ''should be unnecessary. delete?
 'settimer t1s_8
 'endif
 gosub goforward
-pause 2100
+pause 3000
  'do while timer < 3 
 '	gosub goforward
  'loop
@@ -50,6 +50,7 @@ main:
 ; data collection for wall alignment and distance 
 gosub mgetpulses 
 gosub getAlignmentR
+
 'sertxd("FrontDir: ",#frontDir, cr,lf, "FrontAngle: ",#frontAngle, cr,lf, "FrontDistance", #frontDistance,cr,lf,cr,lf)
 'sertxd("RightDir: ", #rightDir, cr, lf, "RightAngle: ", #rightAngle, cr, lf, "RightDistance: ", #rightDistance, cr, lf, cr, lf)
 
@@ -77,6 +78,7 @@ gosub rightwalldistancesuggestV
 'gosub frontwallalignsuggest
 'gosub rightwallsuggest
 gosub frontwallsuggest
+gosub hardmovecheck
 
 'fan :low j21c
 sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)

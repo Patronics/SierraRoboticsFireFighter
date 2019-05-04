@@ -148,6 +148,49 @@ symbol CALVDD = 52429	; 1024*1.024*1000/20  (DAC steps * Ref V / Resolution in m
 	returnw1 = CALVDD / returnw1 + tempw1	; Calculate Vdd/2 again and add in the first value
 return
  
+ hardmovecheck:
+ 
+ 	'sertxd("the sensor data from the left encoder is: ", #Lencoder, cr, lf,  "the sensor data from the right encoder is: ", #Rencoder, cr, lf)
+ 	if oldLencoder = Lencoder then
+ 		Lencodercount = Lencodercount + 1
+ 	else
+ 		Lencodercount = 0
+ 		oldLencoder = Lencoder
+ 		
+ 	endif
+ 	
+ 	if Lencodercount = 50 then
+ 		high white
+ 		high green
+ 		high red
+ 		argb1 = 30
+ 		gosub setspeed
+ 		gosub gobackward
+ 		pause 500
+ 		Lencodercount = 0
+ 	endif
+ 	
+ 	if oldRencoder = Rencoder then
+ 		Rencodercount = Rencodercount + 1
+ 	else
+ 		Rencodercount = 0
+ 		oldRencoder = Rencoder
+ 	endif
+ 	
+ 	if Rencodercount = 50 then
+ 		high white
+ 		high green
+ 		high red
+ 		argb1 = 30
+ 		gosub setspeed
+ 		gosub gobackward
+ 		pause 500
+ 		Rencodercount = 0
+ 	endif
+ 	
+ 	
+ return
+ 
  
  debugled: 
  	

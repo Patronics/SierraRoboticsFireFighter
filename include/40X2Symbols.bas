@@ -19,7 +19,9 @@ symbol white = j22a
 symbol green = j22b
 
 symbol j23a=A.7
-symbol j23b=B.1
+symbol j23ain = pinA.7
+symbol j23b=B.1 
+symbol j23bin= pinB.1
 symbol j23c=D.4
 
 symbol j24a=A.6
@@ -53,7 +55,8 @@ symbol LFusrf=usrf8
 
 symbol ldrl=b32
 symbol ldrr=b33
-
+symbol Lencoder = j23ain 
+symbol Rencoder = j23bin 
 symbol SuggestedBehavior=b20
 symbol SuggestionPriority=b21
 symbol SuggestionIntensity=b22
@@ -97,6 +100,12 @@ symbol gobutton = j25cin
 ''Light Dependent Resistor
 symbol ldr1=0     'D.7
 symbol ldr2=1     'D.6
+
+symbol oldLencoder = b54
+symbol Lencodercount = b55
+
+symbol oldRencoder = b34 
+symbol Rencodercount = b35 
 'symbol ldr3=25     'D.5
 'Other I/O
 'symbol solenoidDriver=
