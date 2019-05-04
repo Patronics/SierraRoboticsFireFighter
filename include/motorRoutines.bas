@@ -122,7 +122,7 @@ return
 flamecheck:
 	
 	gosub mgetpulses
-	if firesense = 1 and  then
+	if firesense = 1 then
 		low fanpin
 		possibleSuggestedBehavior= 6
 		possibleSuggestionPriority= 170

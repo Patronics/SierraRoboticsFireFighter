@@ -14,6 +14,7 @@ goto start
    '''To consider: worth making a setup.bas include file? or keep in main file?
    
 start: 
+timer=10   '''Hacky very bad workaround, fixes immediate fanning. should fix in flamecheck
 gosub verifychip
 hi2csetup i2cmaster, slaveaddr, i2cfast, i2cbyte
 
