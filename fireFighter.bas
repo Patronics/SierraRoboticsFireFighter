@@ -78,11 +78,11 @@ gosub rightwalldistancesuggestV
 'gosub frontwallalignsuggest
 'gosub rightwallsuggest
 gosub frontwallsuggest
-gosub hardmovecheck
+'gosub hardmovecheck
 
 'fan :low j21c
 sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)
-gosub debugled
+'gosub debugled
 
 on SuggestedBehavior gosub idlestop, goforward, proportionalSteerRight, proportionalSteerLeft, fixedturnright, fixedturnleft, powerstop
 

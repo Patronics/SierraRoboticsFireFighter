@@ -153,39 +153,54 @@ return
  	'sertxd("the sensor data from the left encoder is: ", #Lencoder, cr, lf,  "the sensor data from the right encoder is: ", #Rencoder, cr, lf)
  	if oldLencoder = Lencoder then
  		Lencodercount = Lencodercount + 1
+ 		low green
  	else
  		Lencodercount = 0
  		oldLencoder = Lencoder
+ 		high green
  		
  	endif
  	
- 	if Lencodercount = 50 then
- 		high white
- 		high green
- 		high red
- 		argb1 = 30
+ 	if Lencodercount = 18 then
+ 		low white
+ 		'high green
+ 		'low red
+ 		argb1 = 35
  		gosub setspeed
  		gosub gobackward
- 		pause 500
+ 		pause 1000
  		Lencodercount = 0
+ 		Rencodercount = 0
+ 		argb1 = 70
+ 		gosub setspeed
+ 		gosub turnright
+ 		pause 1000
  	endif
  	
  	if oldRencoder = Rencoder then
  		Rencodercount = Rencodercount + 1
+ 		low red
  	else
  		Rencodercount = 0
  		oldRencoder = Rencoder
+ 		high red
  	endif
  	
- 	if Rencodercount = 50 then
+ 	if Rencodercount = 18 then
  		high white
- 		high green
- 		high red
- 		argb1 = 30
+ 		'low green
+ 		'low red
+ 		argb1 = 35
  		gosub setspeed
  		gosub gobackward
- 		pause 500
+ 		pause 1000
  		Rencodercount = 0
+ 		Lencodercount = 0
+ 		'turn left
+ 		argb1 = 70
+ 		gosub setspeed
+ 		gosub turnleft
+ 		pause 1000
  	endif
  	
  	

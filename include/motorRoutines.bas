@@ -106,23 +106,27 @@ return
 
 proportionalSteerRight:
 	gosub goforward
-	argb1 = 60 - SuggestionIntensity * 4 / 5
-	argb2 = 60 * 4 / 5
+	argb1 = 60 - SuggestionIntensity * 5 / 4
+	argb2 = 60 * 5 / 4
 	gosub setspeeds
 return
 
 proportionalSteerLeft:
 	gosub goforward
-	argb2 = 60 - SuggestionIntensity * 4 / 5
-	argb1 = 60 * 4 / 5
+	argb2 = 60 - SuggestionIntensity * 5 / 4
+	argb1 = 60 * 5 / 4
 	gosub setspeeds
 return
+
+
 
 
 flamecheck:
 	
 	gosub mgetpulses
 	if firesense = 1 then
+		Lencodercount = 0
+		Rencodercount = 0
 		low fanpin
 		possibleSuggestedBehavior= 6
 		possibleSuggestionPriority= 170
@@ -134,12 +138,11 @@ flamecheck:
 		'gosub mgetpulses
 		sertxd("fire stop everything", cr, lf)
 		'high fanpin
-		argb1=24
-		gosub setspeed
-		gosub goforward
-		
 		'if firesense = 1 then
 		'	goto flamecheck
+		argb1 = 35
+		gosub setspeed
+		gosub goforward
 		'endif 
 	endif
 	if timer > 5 then
@@ -361,12 +364,12 @@ frontwallsuggest:
 	if frontDistance < 40 then
 		if RightDistance < 32 then ''TODO: Make this based on both left and right sensors
 			possibleSuggestedBehavior=5
-			possibleSuggestionPriority=65
+			possibleSuggestionPriority=70
 			possibleSuggestionIntensity=35
 			gosub evalSuggestion
 	else' else                (should be more indented)
 			possibleSuggestedBehavior=4
-			possibleSuggestionPriority=65
+			possibleSuggestionPriority=70
 			possibleSuggestionIntensity=35
 			gosub evalSuggestion
 	endif'endif           (should be more indented, stupid axepad bug preventing it	
