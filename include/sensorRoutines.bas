@@ -104,29 +104,38 @@ return
 
 
 getAlignmentR:
-gosub mgetpulses 
-rightDistance=RFusrf+RBusrf/2 ' average distance from wall 
-  
- if RFusrf < RBusrf then 
-	 rightDir = 1 
-	 rightAngle = RBusrf - RFusrf 
-else 
-	 rightDir = 0 
-	 rightAngle = RFusrf - RBusrf
-endif
+	 gosub mgetpulses 
+	 'rightDistance=RFusrf+RBusrf/2 ' average distance from wall 
+ 	if RFusrf < RBusrf then
+ 		rightDistance = RFusrf
+ 	else
+ 		rightDistance = RBusrf
+ 	endif
+ 	if RFusrf < RBusrf then 
+		 rightDir = 1 
+		rightAngle = RBusrf - RFusrf 
+ 	else 
+		 rightDir = 0 
+		 rightAngle = RFusrf - RBusrf
+ 	endif
 return
 
 getAlignmentF:
-gosub mgetpulses 
-frontDistance=FRusrf+FLusrf/2 ' average distance from wall 
-  
- if FRusrf < FLusrf then 
-	 frontDir = 1 
-	 frontAngle = FLusrf - FRusrf 
-else 
-	 frontDir = 0 
-	 frontAngle =FRusrf - FLusrf
-endif
+	  gosub mgetpulses 
+	  'frontDistance=FRusrf+FLusrf/2 ' average distance from wall 
+  	if FRusrf < FLusrf then
+  		frontDistance = FRusrf
+  	else 
+  		frontDistance = FLusrf
+  	endif
+  	
+	 if FRusrf < FLusrf then 
+		 frontDir = 1 
+		 frontAngle = FLusrf - FRusrf 
+	 else 
+		 frontDir = 0 
+	 	frontAngle =FRusrf - FLusrf
+	 endif
 return
 
 

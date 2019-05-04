@@ -30,9 +30,19 @@ do while gobutton = 0
 	high red
 	toggle white, green
 loop
-low red, white, green
-argb1=10
+argb1=50 'was 10 changed to 50
 gosub setspeed   'set speed to 10 (5%)
+
+if timer = 0 then
+	settimer t1s_8
+endif
+
+ do while timer < 3 
+	gosub goforward
+ loop
+	
+low red, white, green
+
 
 main:
 ; data collection for wall alignment and distance 
@@ -53,8 +63,11 @@ hi2cin slavetimestamp_ptr, (slavetimestamp)
 'argb1=15
 'gosub rightwalldistance
 
-gosub flamecheck
-gosub resetSuggestion
+ 
+gosub resetSuggestion 
+if firesense=1 then
+	gosub flamecheck
+endif
 argb4 = 15
 gosub rightwalldistancesuggestV
 'gosub emergencystop
