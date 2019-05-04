@@ -122,19 +122,31 @@ return
 flamecheck:
 	
 	gosub mgetpulses
-	if firesense = 1 then
+	if firesense = 1 and  then
 		low fanpin
 		possibleSuggestedBehavior= 6
-		possibleSuggestionPriority= 150
+		possibleSuggestionPriority= 170
 		possibleSuggestionIntensity= 40
 		gosub evalSuggestion
-		pause 2000
-		gosub mgetpulses
+		settimer t1s_8
+		timer=0
+		'pause 2000
+		'gosub mgetpulses
 		sertxd("fire stop everything", cr, lf)
+		'high fanpin
+		'if firesense = 1 then
+		'	goto flamecheck
+		'endif 
+	endif
+	if timer > 5 then
 		high fanpin
-		if firesense = 1 then
-			gosub flamecheck
-	endif ' needs to be indented
+	else
+		low fanpin
+		possibleSuggestedBehavior= 6
+		possibleSuggestionPriority= 170
+		possibleSuggestionIntensity= 40
+		gosub evalSuggestion
+		
 	endif
 	 	
 	'gosub mgetpulses
@@ -211,7 +223,7 @@ rightwalldistancesuggestV:
 			'argb2 = 30
 			'gosub setspeeds
 			'gosub goforward
-			sertxd("Too close to the wall")
+			'sertxd("Too close to the wall")
 			gosub evalSuggestion 
 			'high blue low red low green
 	
@@ -223,7 +235,7 @@ rightwalldistancesuggestV:
 			'gosub setspeeds
 			'gosub goforward 
 			'high red low blue low green
-			sertxd("Too far from the wall")
+			'sertxd("Too far from the wall")
 			possibleSuggestionIntensity = rightDistance - tempb1 * 6 max 50
 			gosub evalSuggestion
 		else
@@ -234,7 +246,7 @@ rightwalldistancesuggestV:
 			'gosub setspeeds
 			'gosub goforward 
 			'high green low red low blue
-			sertxd("Perfect to the wall")
+			'sertxd("Perfect to the wall")
 			gosub evalSuggestion
 		
 		endif
@@ -307,7 +319,7 @@ return
 'return
 rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 
-	gosub mgetpulses 
+	'gosub mgetpulses 
 	gosub getAlignmentR
 	if rightAngle = 0  then
 		possibleSuggestedBehavior=1
@@ -319,7 +331,7 @@ rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 			possibleSuggestionPriority= 12+rightAngle max 60
 			possibleSuggestionIntensity=rightAngle*8 max 60
 			gosub evalSuggestion
-			sertxd("Angled away from the wall")
+			'sertxd("Angled away from the wall")
 			'argb1 =30
 			'argb2 = 50
 			'gosub setspeeds
@@ -339,7 +351,7 @@ rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 return
 
 frontwallsuggest:
-	gosub mgetpulses 
+	'gosub mgetpulses 
 	gosub getAlignmentF
 	
 	if frontDistance < 40 then

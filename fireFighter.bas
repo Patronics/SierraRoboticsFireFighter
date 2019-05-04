@@ -33,13 +33,14 @@ loop
 argb1=50 'was 10 changed to 50
 gosub setspeed   'set speed to 10 (5%)
 
-if timer = 0 then
-	settimer t1s_8
-endif
-
- do while timer < 3 
-	gosub goforward
- loop
+'if timer = 0 then   ''should be unnecessary. delete?
+'settimer t1s_8
+'endif
+gosub goforward
+pause 3000
+ 'do while timer < 3 
+'	gosub goforward
+ 'loop
 	
 low red, white, green
 
@@ -65,9 +66,9 @@ hi2cin slavetimestamp_ptr, (slavetimestamp)
 
  
 gosub resetSuggestion 
-if firesense=1 then
-	gosub flamecheck
-endif
+'if firesense=1 then
+gosub flamecheck
+'endif
 argb4 = 15
 gosub rightwalldistancesuggestV
 'gosub emergencystop
