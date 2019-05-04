@@ -134,6 +134,10 @@ flamecheck:
 		'gosub mgetpulses
 		sertxd("fire stop everything", cr, lf)
 		'high fanpin
+		argb1=24
+		gosub setspeed
+		gosub goforward
+		
 		'if firesense = 1 then
 		'	goto flamecheck
 		'endif 
