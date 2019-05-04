@@ -20,11 +20,20 @@ hi2csetup i2cmaster, slaveaddr, i2cfast, i2cbyte
 pushram
 gosub setupmotors
 popram
-
-
-argb1=10
-gosub setspeed   'set speed to 100 (50%)
 high fanpin 'starts with the fan off
+toggle green
+do while gobutton = 0
+	gosub mgetpulses 
+	gosub getAlignmentR
+	gosub getAlignmentF
+	sertxd("waiting for start button")
+	high red
+	toggle white, green
+loop
+low red, white, green
+argb1=10
+gosub setspeed   'set speed to 10 (5%)
+
 main:
 ; data collection for wall alignment and distance 
 gosub mgetpulses 

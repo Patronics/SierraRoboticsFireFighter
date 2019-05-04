@@ -63,11 +63,16 @@ hi2cin 127, (returnb1)
 
 return
 
+getldrs:
+readadc ldr1,ldrl
+readadc ldr2,ldrr
 
-getldr:
-readadc argb1, returnb1
 
 return
+'getldr:      ''1 line comand makes it unnecessary
+'readadc argb1, returnb1
+
+'return
 
 verifychip:
 
