@@ -19,7 +19,9 @@ mgetpulses:
 bptr = 24
 for loopCount = 0 to 7
 	argb1 = loopCount
+	pushram
 	gosub mgetpulse
+	popram
 	@bptrinc = returnb1
 next
 	
@@ -61,11 +63,16 @@ hi2cin 127, (returnb1)
 
 return
 
+getldrs:
+readadc ldr1,ldrl
+readadc ldr2,ldrr
 
-getldr:
-readadc argb1, returnb1
 
 return
+'getldr:      ''1 line comand makes it unnecessary
+'readadc argb1, returnb1
+
+'return
 
 verifychip:
 
@@ -97,29 +104,38 @@ return
 
 
 getAlignmentR:
-gosub mgetpulses 
-rightDistance=RFusrf+RBusrf/2 ' average distance from wall 
-  
- if RFusrf < RBusrf then 
-	 rightDir = 1 
-	 rightAngle = RBusrf - RFusrf 
-else 
-	 rightDir = 0 
-	 rightAngle = RFusrf - RBusrf
-endif
+	 gosub mgetpulses 
+	 'rightDistance=RFusrf+RBusrf/2 ' average distance from wall 
+ 	if RFusrf < RBusrf then
+ 		rightDistance = RFusrf
+ 	else
+ 		rightDistance = RBusrf
+ 	endif
+ 	if RFusrf < RBusrf then 
+		 rightDir = 1 
+		rightAngle = RBusrf - RFusrf 
+ 	else 
+		 rightDir = 0 
+		 rightAngle = RFusrf - RBusrf
+ 	endif
 return
 
 getAlignmentF:
-gosub mgetpulses 
-frontDistance=FRusrf+FLusrf/2 ' average distance from wall 
-  
- if FRusrf < FLusrf then 
-	 frontDir = 1 
-	 frontAngle = FLusrf - FRusrf 
-else 
-	 frontDir = 0 
-	 frontAngle =FRusrf - FLusrf
-endif
+	  gosub mgetpulses 
+	  'frontDistance=FRusrf+FLusrf/2 ' average distance from wall 
+  	if FRusrf < FLusrf then
+  		frontDistance = FRusrf
+  	else 
+  		frontDistance = FLusrf
+  	endif
+  	
+	 if FRusrf < FLusrf then 
+		 frontDir = 1 
+		 frontAngle = FLusrf - FRusrf 
+	 else 
+		 frontDir = 0 
+	 	frontAngle =FRusrf - FLusrf
+	 endif
 return
 
 
@@ -131,7 +147,90 @@ symbol CALVDD = 52429	; 1024*1.024*1000/20  (DAC steps * Ref V / Resolution in m
 	calibadc10 returnw1		; Read the value again because noise may be present :P
 	returnw1 = CALVDD / returnw1 + tempw1	; Calculate Vdd/2 again and add in the first value
 return
-
+ 
+ hardmovecheck:
+ 
+ 	'sertxd("the sensor data from the left encoder is: ", #Lencoder, cr, lf,  "the sensor data from the right encoder is: ", #Rencoder, cr, lf)
+ 	if oldLencoder = Lencoder then
+ 		Lencodercount = Lencodercount + 1
+ 		low green
+ 	else
+ 		Lencodercount = 0
+ 		oldLencoder = Lencoder
+ 		high green
+ 		
+ 	endif
+ 	
+ 	if Lencodercount = 18 then
+ 		low white
+ 		'high green
+ 		'low red
+ 		argb1 = 35
+ 		gosub setspeed
+ 		gosub gobackward
+ 		pause 1000
+ 		Lencodercount = 0
+ 		Rencodercount = 0
+ 		argb1 = 70
+ 		gosub setspeed
+ 		gosub turnright
+ 		pause 1000
+ 	endif
+ 	
+ 	if oldRencoder = Rencoder then
+ 		Rencodercount = Rencodercount + 1
+ 		low red
+ 	else
+ 		Rencodercount = 0
+ 		oldRencoder = Rencoder
+ 		high red
+ 	endif
+ 	
+ 	if Rencodercount = 18 then
+ 		high white
+ 		'low green
+ 		'low red
+ 		argb1 = 35
+ 		gosub setspeed
+ 		gosub gobackward
+ 		pause 1000
+ 		Rencodercount = 0
+ 		Lencodercount = 0
+ 		'turn left
+ 		argb1 = 70
+ 		gosub setspeed
+ 		gosub turnleft
+ 		pause 1000
+ 	endif
+ 	
+ 	
+ return
+ 
+ 
+ debugled: 
+ 	
+ 	low red
+ 	low green 
+ 	low white
+ 	if suggestedbehavior= 2 then
+ 		high white
+ 		low red
+ 		low green 
+ 	else if suggestedbehavior = 3 then
+ 		high red
+ 		low green
+ 		low white
+ 	else if suggestedbehavior = 1 then
+ 		high green
+ 		low red
+ 		low green
+ 	else
+ 		low red
+ 		low green
+ 		low white
+ 	endif
+ 	
+ return
 
 
 
