@@ -14,16 +14,37 @@ goto start
    '''To consider: worth making a setup.bas include file? or keep in main file?
    
 start: 
+timer = 10
 gosub verifychip
 hi2csetup i2cmaster, slaveaddr, i2cfast, i2cbyte
 
 pushram
 gosub setupmotors
 popram
+high fanpin 'starts with the fan off
+toggle green
+do while gobutton = 0
+	gosub mgetpulses 
+	gosub getAlignmentR
+	gosub getAlignmentF
+	sertxd("waiting for start button")
+	high red
+	toggle white, green
+loop
+argb1=50 'was 10 changed to 50
+gosub setspeed   'set speed to 10 (5%)
 
+'if timer = 0 then   ''should be unnecessary. delete?
+'settimer t1s_8
+'endif
+gosub goforward
+pause 3000
+ 'do while timer < 3 
+'	gosub goforward
+ 'loop
+	
+low red, white, green
 
-argb1=100
-gosub setspeed   'set speed to 100 (50%)
 
 main:
 gosub flamereact
@@ -33,6 +54,9 @@ gosub getAlignmentR
 'sertxd("RightDir: ",#rightDir, cr,lf, "RightAngle: ",#RightAngle, cr,lf, "RightDistance", #rightDistance,cr,lf,cr,lf)
 
 
+
+'sertxd("FrontDir: ",#frontDir, cr,lf, "FrontAngle: ",#frontAngle, cr,lf, "FrontDistance", #frontDistance,cr,lf,cr,lf)
+'sertxd("RightDir: ", #rightDir, cr, lf, "RightAngle: ", #rightAngle, cr, lf, "RightDistance: ", #rightDistance, cr, lf, cr, lf)
 
 hi2cin slaveerrorstatusflags_ptr, (slaveerrorstatusflags)
 hi2cin slavetimestamp_ptr, (slavetimestamp)
@@ -51,10 +75,24 @@ argb1=15
 gosub resetSuggestion
 gosub rightwallsuggest
 gosub frontwallsuggest
+ 
+gosub resetSuggestion 
+'if firesense=1 then
+gosub flamecheck
+'endif
+argb4 = 15
+gosub rightwalldistancesuggestV
+'gosub emergencystop
+'gosub rightwalldistancesuggest
+'gosub frontwallalignsuggest
+'gosub rightwallsuggest
+gosub frontwallsuggest
+'gosub hardmovecheck
 
 sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)
+'gosub debugled
 
-on SuggestedBehavior gosub idlestop, goforward, proportionalSteerRight, proportionalSteerLeft, fixedturnright, fixedturnleft
+on SuggestedBehavior gosub idlestop, goforward, proportionalSteerRight, proportionalSteerLeft, fixedturnright, fixedturnleft, powerstop
 
 
 goto main

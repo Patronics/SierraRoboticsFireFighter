@@ -14,12 +14,14 @@ symbol j22a=C.0  'when set to high will turn on indicators
 symbol j22b=B.2
 symbol j22c=C.7
 
-symbol red = j22a
-symbol blue = j22b 
-symbol green = j22c
+symbol red = j22c
+symbol white = j22a 
+symbol green = j22b
 
 symbol j23a=A.7
-symbol j23b=B.1
+symbol j23ain = pinA.7
+symbol j23b=B.1 
+symbol j23bin= pinB.1
 symbol j23c=D.4
 
 symbol j24a=A.6
@@ -29,6 +31,7 @@ symbol j24c=A.3
 symbol j25a=A.5
 symbol j25b=C.6
 symbol j25c=B.0
+symbol j25cin=pinB.0
 
 symbol masterusrf_ptr_start = 24
 
@@ -50,7 +53,10 @@ symbol BLusrf=usrf6
 symbol LBusrf=usrf7
 symbol LFusrf=usrf8
 
-
+symbol ldrl=b32
+symbol ldrr=b33
+symbol Lencoder = j23ain 
+symbol Rencoder = j23bin 
 symbol SuggestedBehavior=b20
 symbol SuggestionPriority=b21
 symbol SuggestionIntensity=b22
@@ -85,14 +91,22 @@ symbol RmotorDir1=D.3  ' B.4    may need reorganizing
 
 symbol fanpin = j21c     'Active low!
 symbol firesense = j21ain
+
+symbol gobutton = j25cin
 'symbol LmotorForward=LmotorDir1
 'symbol LmotorReverse=LmotorDir2
 'symbol RmotorForward=RmotorDir1
 'symbol RmotorReverse=RmotorDir2
 ''Light Dependent Resistor
-symbol ldr1=27     'D.7
-symbol ldr2=26     'D.6
-symbol ldr3=25     'D.5
+symbol ldr1=0     'D.7
+symbol ldr2=1     'D.6
+
+symbol oldLencoder = b54
+symbol Lencodercount = b55
+
+symbol oldRencoder = b34 
+symbol Rencodercount = b35 
+'symbol ldr3=25     'D.5
 'Other I/O
 'symbol solenoidDriver=
 ;symbol gobutton=pinB.0
