@@ -28,7 +28,7 @@ next
 'byte pointer = 24 m+ count'
 '@bpointer inc
 return
-
+;**DOC:  This is the basic USRF data collection function. both mgetpulse and sgetpulse call this function to get data from the USRFs. 
 getpulse:
 	pulsout argb1,2
 	pulsin argb2,1,returnw1
