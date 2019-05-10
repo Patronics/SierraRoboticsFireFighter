@@ -118,6 +118,19 @@ proportionalSteerLeft:
 	gosub setspeeds
 return
 
+flamereact:
+
+if firesense then
+	
+	low fanpin
+	
+else
+	high fanpin
+	
+	
+return
+
+
 
 
 
@@ -208,6 +221,10 @@ return
 '	endif
 '	loop
 'return
+
+
+
+
 
 resetSuggestion:
 	SuggestedBehavior=0    ''default behavior is to stop
@@ -334,8 +351,8 @@ rightwallsuggest:    ''''Suggest behavior based on right wall sensors.
 		gosub evalSuggestion
 	else
 		if rightDir=0 then   ''tend to align with wall, with medium-low priority
-			possibleSuggestedBehavior= 2
-			possibleSuggestionPriority= 12+rightAngle max 60
+			possibleSuggestedBehavior=2
+			possibleSuggestionPriority=12+rightAngle max 30
 			possibleSuggestionIntensity=rightAngle*8 max 60
 			gosub evalSuggestion
 			'sertxd("Angled away from the wall")
