@@ -71,14 +71,14 @@ gosub resetSuggestion
 'if firesense=1 then
 gosub flamecheck
 'endif
-argb4 = 15
+argb4 = 15'46'30 seems to be best so far, but 15 CONFIRMED worked
 gosub rightwalldistancesuggestV
 'gosub emergencystop
 'gosub rightwalldistancesuggest
 'gosub frontwallalignsuggest
 'gosub rightwallsuggest
 gosub frontwallsuggest
-'gosub hardmovecheck
+gosub hardmovecheck
 
 'fan :low j21c
 sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)

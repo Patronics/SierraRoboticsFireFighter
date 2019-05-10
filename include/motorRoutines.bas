@@ -266,42 +266,42 @@ rightwalldistancesuggestV:
 	
 return
 
-'rightwalldistancesuggest:
-'
-'	tempb1 = argb1
-'	
-'	gosub getAlignmentR
-'	tempb2 = tempb1 + 2 'upper bound allowance
-'	tempb3 = tempb1 - 2 'lower bound allowance
-'	if rightDistance < tempb3 then
-'		possibleSuggestedBehavior = 3
-'		possibleSuggestionPriority = tempb1 - rightDistance * 4 max 45
-'		possibleSuggestionIntensity = 30'tempb1 - rightDistance * 6 max 50
-'		'argb1 = 60 -30
-		'argb2 = 60
-		'gosub steerleft
-'		gosub evalSuggestion
-'	
-'	else if rightDistance > tempb2 then
-'		possibleSuggestedBehavior = 2
-'		possibleSuggestionPriority = rightDistance - tempb1 * 4 max 45
-		'argb1 = 60
-		'argb2 = 60 - 30
-		'gosub steerright
-'		possibleSuggestionIntensity = 30 'rightDistance - tempb1 * 6 max 50
-'		gosub evalSuggestion
-'	else
-'		possibleSuggestedBehavior = 1
-'		possibleSuggestionPriority = 5
-		'argb1 = 60
-		'argb2 = 60
-		'gosub goforward
-'		gosub evalSuggestion
+rightwalldistancesuggest:
+
+	tempb1 = argb1
+	
+	gosub getAlignmentR
+	tempb2 = tempb1 + 2 'upper bound allowance
+	tempb3 = tempb1 - 2 'lower bound allowance
+	if rightDistance < tempb3 then
+		possibleSuggestedBehavior = 3
+		possibleSuggestionPriority = tempb1 - rightDistance * 4 max 45
+		possibleSuggestionIntensity = 30'tempb1 - rightDistance * 6 max 50
+		argb1 = 60 -30
+		argb2 = 60
+		gosub steerleft
+		gosub evalSuggestion
+	
+	else if rightDistance > tempb2 then
+		possibleSuggestedBehavior = 2
+		possibleSuggestionPriority = rightDistance - tempb1 * 4 max 45
+		argb1 = 60
+		argb2 = 60 - 30
+		gosub steerright
+		possibleSuggestionIntensity = 30 'rightDistance - tempb1 * 6 max 50
+		gosub evalSuggestion
+	else
+		possibleSuggestedBehavior = 1
+		possibleSuggestionPriority = 5
+		argb1 = 60
+		argb2 = 60
+		gosub goforward
+		gosub evalSuggestion
 		
-'	endif
+	endif
 	
 	
-'return
+return
 
 'frontwallalignsuggest:
 '

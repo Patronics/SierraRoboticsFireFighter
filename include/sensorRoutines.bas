@@ -161,20 +161,20 @@ return
  		
  	endif
  	
- 	if Lencodercount = 18 then
+ 	if Lencodercount = 30 then
  		low white
  		'high green
  		'low red
  		argb1 = 35
  		gosub setspeed
  		gosub gobackward
- 		pause 1000
+ 		pause 500
  		Lencodercount = 0
  		Rencodercount = 0
  		argb1 = 70
  		gosub setspeed
  		gosub turnright
- 		pause 1000
+ 		pause 500
  	endif
  	
  	if oldRencoder = Rencoder then
@@ -186,21 +186,21 @@ return
  		high red
  	endif
  	
- 	if Rencodercount = 18 then
+ 	if Rencodercount = 30 then
  		high white
  		'low green
  		'low red
  		argb1 = 35
  		gosub setspeed
  		gosub gobackward
- 		pause 1000
+ 		pause 500
  		Rencodercount = 0
  		Lencodercount = 0
  		'turn left
  		argb1 = 70
  		gosub setspeed
  		gosub turnleft
- 		pause 1000
+ 		pause 500
  	endif
  	
  	
