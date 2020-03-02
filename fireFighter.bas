@@ -25,8 +25,8 @@ high fanpin 'starts with the fan off
 toggle green
 do while gobutton = 0
 	gosub mgetpulses 
-	gosub getAlignmentR
-	gosub getAlignmentF
+	'gosub getAlignmentR
+	'gosub getAlignmentF
 	sertxd("waiting for start button")
 	high red
 	toggle white, green
@@ -37,20 +37,22 @@ gosub setspeed   'set speed to 10 (5%)
 'if timer = 0 then   ''should be unnecessary. delete?
 'settimer t1s_8
 'endif
-gosub goforward
-pause 3000
+'gosub goforward
+'pause 3000
  'do while timer < 3 
 '	gosub goforward
  'loop
 	
-low red, white, green
+'low red, white, green
 
 
 main:
-gosub flamereact
+'gosub flamereact
 ; data collection for wall alignment and distance 
 gosub mgetpulses 
-gosub getAlignmentR
+
+gosub demoDrive
+'gosub getAlignmentR
 'sertxd("RightDir: ",#rightDir, cr,lf, "RightAngle: ",#RightAngle, cr,lf, "RightDistance", #rightDistance,cr,lf,cr,lf)
 
 
@@ -67,32 +69,33 @@ hi2cin slavetimestamp_ptr, (slavetimestamp)
 'sertxd("timestamp:  ",#slavetimestamp,cr,lf)
 
 
-argb1=15
+'argb1=15
 'gosub rightwalldistance
 
 
 
-gosub resetSuggestion
-gosub rightwallsuggest
-gosub frontwallsuggest
+'gosub resetSuggestion
+'gosub rightwallsuggest
+'gosub frontwallsuggest
  
-gosub resetSuggestion 
+'gosub resetSuggestion 
 'if firesense=1 then
-gosub flamecheck
+'gosub flamecheck
 'endif
-argb4 = 15
-gosub rightwalldistancesuggestV
+'argb4 = 15
+'gosub rightwalldistancesuggestV
 'gosub emergencystop
 'gosub rightwalldistancesuggest
 'gosub frontwallalignsuggest
 'gosub rightwallsuggest
-gosub frontwallsuggest
+'gosub frontwallsuggest
 'gosub hardmovecheck
 
-sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)
+'sertxd("Behavior ",#SuggestedBehavior, cr,lf, "priority: ",#SuggestionPriority, cr,lf, "intensity:", #SuggestionIntensity,cr,lf,cr,lf)
 'gosub debugled
+'gosub frontTurn
 
-on SuggestedBehavior gosub idlestop, goforward, proportionalSteerRight, proportionalSteerLeft, fixedturnright, fixedturnleft, powerstop
+'on SuggestedBehavior gosub idlestop, goforward, proportionalSteerRight, proportionalSteerLeft, fixedturnright, fixedturnleft, powerstop
 
 
 goto main
