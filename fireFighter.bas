@@ -31,7 +31,7 @@ do while gobutton = 0
 	high red
 	toggle white, green
 loop
-argb1=35 'was 10 changed to 50
+argb1=45 'was 10 changed to 50
 gosub setspeed   'set speed to 10 (5%)
 
 'if timer = 0 then   ''should be unnecessary. delete?
@@ -103,16 +103,24 @@ goto main
 demoDrive:
 	sertxd("L")
 	'gosub mgetpulses
-	argb1 = FRusrf + FLusrf
-	if argb1  < 20 then
-		gosub fixedTurnRight
-		pause 100
+	argb1 = FRusrf + FLusrf / 2
+	sertxd ("FR:", #FRusrf, ", FL:", #FLusrf,cr,lf)
+	if argb1  < 22 then
+		inc b51
+		if b51>2 then
+			gosub fixedTurnRight
+		endif
+		'pause 100
 		'argb1 = 15
 		'gosub setspeedr
 		'argb1 = 25
 		'gosub setspeedl
+	elseif b51>6 then
+			b51 = b51 - 2
+			gosub fixedTurnRight
 	else
-		argb1=35 'was 10 changed to 50
+		b51=0
+		argb1=45 'was 10 changed to 50
 		gosub setspeed   'set speed to 10 (5%)
 		gosub goForward
 	endif
