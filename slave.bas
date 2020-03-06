@@ -1,6 +1,9 @@
 goto start
+#define slave
 #include "28x2symbols.bas"
 #include "sensorroutines.bas"
+
+
 
 start:
 
@@ -19,7 +22,7 @@ argb1=j13b    'usrf pins
 argb2=j13a    'usrf pins
 argb3=1       'usrf number; memory slot+65
 gosub sgetpulse    '''assuming usrf connected to J11 for testing
-
+#REM
 pause 30
 argb1=j15b
 argb2=j15a
@@ -31,7 +34,7 @@ argb1=j14b
 argb2=j14a
 argb3=2
 gosub sgetpulse
-
+#ENDREM
 
 'pause 20
 'argb1=j16b

@@ -118,13 +118,6 @@ proportionalSteerLeft:
 	gosub setspeeds
 return
 
-demoDrive:
-	gosub goforward
-	gosub frontTurn
-return
-
-
-
 
 'flamereact:
 
@@ -138,16 +131,7 @@ return
 'return
 
 
-frontTurn:
-	gosub mgetpulses
-	argb1 = FRusrf - FLusrf
-	if argb1  > 20 then
-		argb1 = 15
-		gosub setspeedr
-		argb1 = 25
-		gosub setspeedl
-	endif
-return
+
 
 
 'flamecheck:

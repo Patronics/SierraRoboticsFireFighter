@@ -62,11 +62,11 @@ mgetstatusflag:
 hi2cin 127, (returnb1)
 
 return
-
+#ifndef slave
 getldrs:
 readadc ldr1,ldrl
 readadc ldr2,ldrr
-
+#endif
 
 return
 'getldr:      ''1 line comand makes it unnecessary
