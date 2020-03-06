@@ -17,7 +17,7 @@ start:
 timer = 10
 gosub verifychip
 hi2csetup i2cmaster, slaveaddr, i2cfast, i2cbyte
-
+sertxd("starting!")
 pushram
 gosub setupmotors
 popram
@@ -31,7 +31,7 @@ do while gobutton = 0
 	high red
 	toggle white, green
 loop
-argb1=50 'was 10 changed to 50
+argb1=35 'was 10 changed to 50
 gosub setspeed   'set speed to 10 (5%)
 
 'if timer = 0 then   ''should be unnecessary. delete?
@@ -99,6 +99,24 @@ hi2cin slavetimestamp_ptr, (slavetimestamp)
 
 
 goto main
+
+demoDrive:
+	sertxd("L")
+	'gosub mgetpulses
+	argb1 = FRusrf + FLusrf
+	if argb1  < 20 then
+		gosub fixedTurnRight
+		pause 100
+		'argb1 = 15
+		'gosub setspeedr
+		'argb1 = 25
+		'gosub setspeedl
+	else
+		argb1=35 'was 10 changed to 50
+		gosub setspeed   'set speed to 10 (5%)
+		gosub goForward
+	endif
+return
 
 
 ultratest:
